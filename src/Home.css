@@ -1,0 +1,77 @@
+/*Home.css*/
+body {
+    margin: 0;
+    font-family: 'Seoge UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.App {
+    padding: 40px 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+.mainCard {
+    background: whiteSmoke;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 15px;
+    padding: 60px;
+    width: 600px;
+    max-width: 90%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+h1 {
+    color: #2e7d32;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+p {
+    color: #4caf50;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.buttonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+button {
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 300px;
+}
+#loginBtn {
+    padding: 18px 40px;
+    font-size: 20px;
+    background-color: #4caf50;
+    color: white;
+}
+#loginBtn:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+#createAccountBtn {
+    padding: 12px 30px;
+    font-size: 16px;
+    background-color: #a8a8a8;
+    color: white;
+}
+#createAccountBtn:hover {
+    background-color: #909090;
+    transform: translateY(-2px);
+}
