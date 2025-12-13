@@ -1,6 +1,11 @@
+import './Home.css'
+import { useNavigate } from 'react-router-dom';
+
 function Home() {
+    const navigate = useNavigate();
     const handleLogin = () => { //for now when either of these buttons are clicked, just move on. Make the backend later.
         console.log("Login clicked!");
+        navigate('/AddOrView');
     };
     const handleCreateAccount = () => {
         console.log("Create Account clicked!")

@@ -1,11 +1,17 @@
-import './Home.css'
-
+import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './Home';
+import AddOrView from './AddOrView'
+
 function App() {
   return (
-    <div className = "App">
-      <Home />
-    </div>
+    <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/AddOrView" element={<AddOrView />} />
+        </Routes>
+    </BrowserRouter>
+    
   )
 }
 
