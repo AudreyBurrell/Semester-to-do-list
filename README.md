@@ -21,7 +21,7 @@ I got this idea because I've been encountering a lot of different ways that peop
 
 ## Contact
 * **Portfolio:** AudreyBurrell.github.io
-* **Linkedln** www.linkedin.com/in/audrey-burrell-786479341 
+* [**Linkedln**](www.linkedin.com/in/audrey-burrell-786479341)
 * **Email** audreyb2165@gmail.com 
 
 [Check out my Github](https://github.com/audreyburrell)
