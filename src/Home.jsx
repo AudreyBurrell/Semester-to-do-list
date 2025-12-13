@@ -1,11 +1,17 @@
 function Home() {
+    const handleLogin = () => { //for now when either of these buttons are clicked, just move on. Make the backend later.
+        console.log("Login clicked!");
+    };
+    const handleCreateAccount = () => {
+        console.log("Create Account clicked!")
+    };
     return (
         <div className = "mainCard">
             <h1> Welcome to Assignment Tracker </h1>
             <p> Track all your college assignments here! </p>
             <div className = "buttonContainer">
-                <button id="loginBtn">Login</button>
-                <button id="createAccountBtn">Create Account</button>
+                <button id="loginBtn" onClick={handleLogin}>Login</button>
+                <button id="createAccountBtn"onClick={handleCreateAccount}>Create Account</button>
             </div>
         </div>
     );
