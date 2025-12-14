@@ -7,6 +7,7 @@ function AddAssignmentsSemester() {
     const [showAddClassForm, setShowAddClassForm] = useState(false); //controls whether the add form is visible
     const [newClassName, setNewClassName] = useState(''); //stores the class name
     const [selectedColor, setSelectedColor] = useState('#4caf50'); //stores the color, defaults to green
+    const [selectedClass, setSelectedClass] = useState(null);
     const colorOptions = [
         { name: 'Red', value: '#f44336' },
         { name: 'Pink', value: '#e91e63' },
@@ -43,6 +44,9 @@ function AddAssignmentsSemester() {
         setSelectedColor('#4caf50');
         setShowAddClassForm(false);
     };
+    const handleClassSelect = (classId) => {
+        setSelectedClass(classId);
+    };
 
     return (
         <div>
@@ -75,8 +79,13 @@ function AddAssignmentsSemester() {
                         {classes.map((classItem) => (
                             <button 
                                 key={classItem.id}
-                                className="classButton"
-                                style={{ borderColor: classItem.color, color: classItem.color }}
+                                className={`classButton ${selectedClass === classItem.id ? 'selectedClass' : ''}`}
+                                style={{ 
+                                    borderColor: classItem.color, 
+                                    color: selectedClass === classItem.id ? 'white' : classItem.color,
+                                    backgroundColor: selectedClass === classItem.id ? classItem.color : 'white'
+                                }}
+                                onClick={() => handleClassSelect(classItem.id)}
                             >
                                 {classItem.name}
                             </button>
