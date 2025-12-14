@@ -47,6 +47,10 @@ function AddAssignmentsSemester() {
     const handleClassSelect = (classId) => {
         setSelectedClass(classId);
     };
+    //item preview stuff
+    const [dueDate, setDueDate] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [assignmentName, setAssignmentName] = useState('');
 
     return (
         <div>
@@ -60,17 +64,17 @@ function AddAssignmentsSemester() {
                     {/* those two forms appear next to each other near the top of the manual enter area and above every other manual enter item.  */}
                     <form>
                         <label htmlFor="dueDate">Due Date:</label>
-                        <input type="date" id="dueDate" name="dueDate" required/>
+                        <input type="date" id="dueDate" name="dueDate" required value={dueDate} onChange={(e) => setDueDate(e.target.value)}/>
                     </form>
                     <form>
                         <label htmlFor="startDate">Start Date (optional):</label>
-                        <input type="date" id="startDate" name="startDate"/>
+                        <input type="date" id="startDate" name="startDate" value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
                     </form>
                 </div>
                 <div className="selectClassArea">
                     <div className="assignmentNameArea">
                         <label htmlFor="assignmentName">Assignment Name:</label>
-                        <input type="text" id="assignmentName" name="assignmentName" required/>
+                        <input type="text" id="assignmentName" name="assignmentName" required value={assignmentName} onChange={(e) => setAssignmentName(e.target.value)}/>
                     </div>
                     {/* The buttons appear all next to each other */}
                     <p id="selectAClassInstruction">Select a class:</p>
@@ -114,7 +118,25 @@ function AddAssignmentsSemester() {
                     {/*Space where the list item shows (displays the date it's due, date student should start, item in corresponding color) */}
                     {/*Add to list button*/}
                     <div className="itemPreview">
-                        <p>Item preview will appear here.</p>
+                        {assignmentName || dueDate || selectedClass ? (
+                            <div className="previewContent">
+                                <h4>Preview:</h4>
+                                {assignmentName && <p className="previewAssignment">{assignmentName}</p>}
+                                {dueDate && <p className="previewDate">Due: {new Date(dueDate).toLocaleDateString()}</p>}
+                                {startDate && <p className="previewDate">Start: {new Date(startDate).toLocaleDateString()}</p>}
+                                {selectedClass && (
+                                    <p
+                                        className="previewClass"
+                                        style={{ color: classes.find(c => c.id === selectedClass)?.color }}
+                                    >
+                                        {classes.find(c => c.id === selectedClass)?.name}
+                                    </p>
+                                )}
+                            </div>
+                        ) : (
+                            <p>Item preview will appear here.</p>
+                        )
+                        }
                     </div>
                     <button className="addToListBtn">Add to List</button>
                 </div>
