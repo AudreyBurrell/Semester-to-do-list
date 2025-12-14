@@ -11,13 +11,14 @@ I got this idea because I've been encountering a lot of different ways that peop
 * **Storing** - Assignments saved accross sessions
 
 ## Technologies Used
-* **React** - Frontend frameowrk
-* **HTML/CSS** - Custom styling 
+* **React** - Frontend framework
+* **HTML/CSS**  
 
 **How I used AI**
 * To guide me through setting up the development environment
 * Assisting me with React syntax
 * Assisting me with CSS styling 
+* Helped me with storing the dates and some manipulation with that
 
 ## Contact
 * **Portfolio:** AudreyBurrell.github.io
