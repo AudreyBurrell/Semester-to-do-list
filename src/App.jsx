@@ -4,6 +4,8 @@ import Home from './Home';
 import AddOrView from './AddOrView' 
 //once I have more pages, import them from what's exported at the end of the jsx
 //and then add more routes to the list below
+import DailyToDo from './DailyToDo'
+import AddAssignmentsSemester from './AddAssignmentsSemester'
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/AddOrView" element={<AddOrView />} />
+          <Route path="/DailyToDo" element={<DailyToDo />} />
+          <Route path="/AddAssignmentsSemester" element={<AddAssignmentsSemester />} />
         </Routes>
     </BrowserRouter>
     
