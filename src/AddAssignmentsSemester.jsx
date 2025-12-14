@@ -1,7 +1,39 @@
 import './AddAssignmentsSemester.css'
+import { useState } from 'react';  //Allows things to be updated and stored
 
 function AddAssignmentsSemester() {
-    //functions for the buttons goes here
+    //add class functionality stuff
+    const [classes, setClasses] = useState([]); //classes is an array that holds all the classes the user has added, setClasses is a function to update that array, useState([]) starts as an empty array
+    const [showAddClassForm, setShowAddClassForm] = useState(false); //controls whether the add form is visible
+    const [newClassName, setNewClassName] = useState(''); //stores the class name
+    const [selectedColor, setSelectedColor] = useState('#4caf50'); //stores the color, defaults to green
+    const colorOptions = [
+        { name: 'Green', value: '#4caf50' },
+        { name: 'Blue', value: '#2196f3' },
+        //add more colors later
+    ]
+    const handleAddClassClick = () => {
+        setShowAddClassForm(!showAddClassForm);
+    };
+    const handleSaveClass = () => {
+        if (newClassName.trim()) {
+            const newClass = {
+                id: Date.now(), 
+                name: newClassName,
+                color: selectedColor
+            };
+            setClasses([...classes, newClass]);
+            setNewClassName(''); //resetting things because it's been added to the array
+            setSelectedColor('#4caf50');
+            setShowAddClassForm(false);
+        }
+    };
+    const handleCancelAddClass = () => {
+        setNewClassName('');
+        setSelectedColor('#4caf50');
+        setShowAddClassForm(false);
+    };
+
     return (
         <div>
             <div className = "header"> 
@@ -29,7 +61,7 @@ function AddAssignmentsSemester() {
                     {/* The buttons appear all next to each other */}
                     <p id="selectAClassInstruction">Select a class:</p>
                     {/* this area will just have a bunch of buttons with different classes that have already been entered and their outline being the color that the user suggested. Next to these buttons is a button where the user can add a class, which will bring up a popup of a form where they enter class name and choose a color */}
-                    <button className="addClass">+ Add Class</button>
+                    <button className="addClass" onClick={handleAddClassClick}>+ Add Class</button>
                 </div>
                 <div className = "checkingArea">
                     {/*Space where the list item shows (displays the date it's due, date student should start, item in corresponding color) */}
