@@ -356,7 +356,7 @@ body {
     width: auto;
 }
 
-.addOrCancelClassBtn button:last-child {
+.addOrCancelClassBtn button:first-child {
     background-color: #9e9e9e;
 }
 
@@ -365,6 +365,6 @@ body {
     transform: translateY(-2px);
 }
 
-.addOrCancelClassBtn button:last-child:hover {
+.addOrCancelClassBtn button:first-child:hover {
     background-color: #757575;
 }

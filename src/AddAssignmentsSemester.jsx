@@ -51,17 +51,55 @@ function AddAssignmentsSemester() {
     const [dueDate, setDueDate] = useState('');
     const [startDate, setStartDate] = useState('');
     const [assignmentName, setAssignmentName] = useState('');
+    //add to list button stuff
+    const [assignmentsList, setAssignmentsList] = useState({});
+    const handleAddToList = () => {
+        if (!assignmentName.trim() || !dueDate || !selectedClass) {
+            alert('Please fill in Assignment Name, Due Date, and select a Class');
+            return;
+        }
+        const selectedClassObj = classes.find(c => c.id === selectedClass);
+        const assignmentData = {
+            id: Date.now(),
+            name: assignmentName,
+            color: selectedClassObj.color,
+            className: selectedClassObj.name
+        };
+        const newAssignmentsList = {...assignmentsList};
+        if (startDate && startDate <= dueDate) {
+            const start = new Date(startDate);
+            const end = new Date(dueDate);
+            for (let date = new Date(start); date <= end; date.setDate(date.getDate() + 1)) {
+                const dateKey = date.toISOString().split('T')[0];
+                if (!newAssignmentsList[dateKey]){
+                    newAssignmentsList[dateKey] = [];
+                }
+                newAssignmentsList[dateKey].push({...assignmentData});
+            }
+        } else {
+            if (!newAssignmentsList[dueDate]) {
+                newAssignmentsList[dueDate] = [];
+            }
+            newAssignmentsList[dueDate].push(assignmentData);
+        }
+        setAssignmentsList(newAssignmentsList);
+        console.log(newAssignmentsList);
+        //clearing the form
+        setAssignmentName('');
+        setDueDate('');
+        setStartDate('');
+        setSelectedClass(null);
+    };
+
 
     return (
         <div>
             <div className = "header"> 
-                {/* everything will appear at the top of the screen. Instructions on the left side, button on the right side of the screen */}
                 <h3>Manually enter in items for the semester or upload a CSV. </h3> 
                 <button id="CSVBtn"> Upload CSV </button>
             </div>
             <div className = "manualEnterArea">
                 <div className="dateArea">
-                    {/* those two forms appear next to each other near the top of the manual enter area and above every other manual enter item.  */}
                     <form>
                         <label htmlFor="dueDate">Due Date:</label>
                         <input type="date" id="dueDate" name="dueDate" required value={dueDate} onChange={(e) => setDueDate(e.target.value)}/>
@@ -76,9 +114,7 @@ function AddAssignmentsSemester() {
                         <label htmlFor="assignmentName">Assignment Name:</label>
                         <input type="text" id="assignmentName" name="assignmentName" required value={assignmentName} onChange={(e) => setAssignmentName(e.target.value)}/>
                     </div>
-                    {/* The buttons appear all next to each other */}
                     <p id="selectAClassInstruction">Select a class:</p>
-                    {/* this area will just have a bunch of buttons with different classes that have already been entered and their outline being the color that the user suggested. Next to these buttons is a button where the user can add a class, which will bring up a popup of a form where they enter class name and choose a color */}
                     <div className="classButtonsContainer">
                         {classes.map((classItem) => (
                             <button 
@@ -115,8 +151,6 @@ function AddAssignmentsSemester() {
                     )}
                 </div>
                 <div className = "checkingArea">
-                    {/*Space where the list item shows (displays the date it's due, date student should start, item in corresponding color) */}
-                    {/*Add to list button*/}
                     <div className="itemPreview">
                         {assignmentName || dueDate || selectedClass ? (
                             <div className="previewContent">
@@ -138,9 +172,8 @@ function AddAssignmentsSemester() {
                         )
                         }
                     </div>
-                    <button className="addToListBtn">Add to List</button>
+                    <button className="addToListBtn" onClick={handleAddToList}>Add to List</button>
                 </div>
-                
             </div>
         </div>  
     )
