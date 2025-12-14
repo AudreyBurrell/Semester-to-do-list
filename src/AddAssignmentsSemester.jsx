@@ -102,16 +102,6 @@ function AddAssignmentsSemester() {
             <div className = "header"> 
                 <h3>Manually enter in items for the semester or upload a CSV. </h3> 
                 <button id="CSVBtn" onClick={handleCSVClick}> Upload CSV </button>
-                {showCSVPopup && (
-                    <div className="CSVPopup">
-                        <p>
-                            <a href="https://docs.google.com/spreadsheets/d/1YxQ1XzAJDLQyaSTI2jshmNz32ysJCn3JR-idrP872zM/edit?usp=sharing" target="_blank">Copy</a>
-                            {' '} the Assignment Tracker template to begin.
-                        </p>
-                        <p> Download it into a CSV and upload here </p>
-                        <button className="uploadCSVBtn">Upload CSV</button>
-                    </div>
-                )}
             </div>
             <div className = "manualEnterArea">
                 <div className="dateArea">
@@ -190,6 +180,21 @@ function AddAssignmentsSemester() {
                     <button className="addToListBtn" onClick={handleAddToList}>Add to List</button>
                 </div>
             </div>
+            {showCSVPopup && (
+                <div className="popupOverlay">
+                    <div className="CSVPopup">
+                        <p>
+                            <a href="https://docs.google.com/spreadsheets/d/1YxQ1XzAJDLQyaSTI2jshmNz32ysJCn3JR-idrP872zM/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Copy</a>
+                            {' '} the Assignment Tracker template to begin.
+                        </p>
+                        <p> Download it into a CSV and upload here </p>
+                        <div className="uploadCSVBtnContainer">
+                            <button className="closeUploadCSV" onClick={handleCSVClick}>Close</button>
+                            <button className="uploadCSVBtn">Upload</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>  
     )
 }
