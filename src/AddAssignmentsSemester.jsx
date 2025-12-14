@@ -105,7 +105,7 @@ function AddAssignmentsSemester() {
                 {showCSVPopup && (
                     <div className="CSVPopup">
                         <p>
-                            <a href="https://docs.google.com/spreadsheets/d/1YxQ1XzAJDLQyaSTI2jshmNz32ysJCn3JR-idrP872zM/edit?usp=sharing">Copy</a>
+                            <a href="https://docs.google.com/spreadsheets/d/1YxQ1XzAJDLQyaSTI2jshmNz32ysJCn3JR-idrP872zM/edit?usp=sharing" target="_blank">Copy</a>
                             {' '} the Assignment Tracker template to begin.
                         </p>
                         <p> Download it into a CSV and upload here </p>
