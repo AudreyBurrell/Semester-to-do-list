@@ -8,10 +8,20 @@ function AddAssignmentsSemester() {
     const [newClassName, setNewClassName] = useState(''); //stores the class name
     const [selectedColor, setSelectedColor] = useState('#4caf50'); //stores the color, defaults to green
     const colorOptions = [
+        { name: 'Red', value: '#f44336' },
+        { name: 'Pink', value: '#e91e63' },
+        { name: 'Yellow', value: '#ff9800'},
+        { name: 'Orange', value: '#ff7043' },
         { name: 'Green', value: '#4caf50' },
+        { name: 'Teal', value: '#009688' },
+        { name: 'Cyan', value: '#00bcd4'},
         { name: 'Blue', value: '#2196f3' },
-        //add more colors later
-    ]
+        { name: 'Indigo', value: '#3f51b5'},
+        { name: 'Purple', value: '#9c27b0'},
+        { name: 'Brown', value: '#795548'},
+        { name: 'Gray', value: '#757575'},
+        { name: 'Black', value: '#000'}
+    ];
     const handleAddClassClick = () => {
         setShowAddClassForm(!showAddClassForm);
     };
@@ -85,8 +95,8 @@ function AddAssignmentsSemester() {
                                 </div>
                             </div>
                             <div className="addOrCancelClassBtn">
-                                <button onClick={handleSaveClass}>Save</button>
                                 <button onClick={handleCancelAddClass}>Cancel</button>
+                                <button onClick={handleSaveClass}>Save</button>
                             </div>
                         </div>
                     )}
