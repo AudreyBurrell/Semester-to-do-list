@@ -90,13 +90,28 @@ function AddAssignmentsSemester() {
         setStartDate('');
         setSelectedClass(null);
     };
+    //CSV popup stuff
+    const [showCSVPopup, setShowCSVPopup] = useState(false);
+    const handleCSVClick = () => {
+        setShowCSVPopup(!showCSVPopup);
+    };
 
 
     return (
         <div>
             <div className = "header"> 
                 <h3>Manually enter in items for the semester or upload a CSV. </h3> 
-                <button id="CSVBtn"> Upload CSV </button>
+                <button id="CSVBtn" onClick={handleCSVClick}> Upload CSV </button>
+                {showCSVPopup && (
+                    <div className="CSVPopup">
+                        <p>
+                            <a href="https://docs.google.com/spreadsheets/d/1YxQ1XzAJDLQyaSTI2jshmNz32ysJCn3JR-idrP872zM/edit?usp=sharing">Copy</a>
+                            {' '} the Assignment Tracker template to begin.
+                        </p>
+                        <p> Download it into a CSV and upload here </p>
+                        <button className="uploadCSVBtn">Upload CSV</button>
+                    </div>
+                )}
             </div>
             <div className = "manualEnterArea">
                 <div className="dateArea">
