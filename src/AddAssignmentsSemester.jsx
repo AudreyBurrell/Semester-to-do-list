@@ -22,13 +22,14 @@ function AddAssignmentsSemester() {
                     </form>
                 </div>
                 <div className="selectClassArea">
+                    <div className="assignmentNameArea">
+                        <label htmlFor="assignmentName">Assignment Name:</label>
+                        <input type="text" id="assignmentName" name="assignmentName" required/>
+                    </div>
                     {/* The buttons appear all next to each other */}
+                    <p id="selectAClassInstruction">Select a class:</p>
                     {/* this area will just have a bunch of buttons with different classes that have already been entered and their outline being the color that the user suggested. Next to these buttons is a button where the user can add a class, which will bring up a popup of a form where they enter class name and choose a color */}
                     <button className="addClass">+ Add Class</button>
-                </div>
-                <div classname="assignmentNameArea">
-                    <label htmlFor="assignmentName">Assignment Name:</label>
-                    <input type="text" id="assignmentName" name="assignmentName" required/>
                 </div>
                 <div className = "checkingArea">
                     {/*Space where the list item shows (displays the date it's due, date student should start, item in corresponding color) */}

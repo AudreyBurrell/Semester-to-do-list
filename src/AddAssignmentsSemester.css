@@ -1,0 +1,201 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    min-height: 100vh;
+}
+
+/* Header section - instructions on left, button on right */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    gap: 30px;
+}
+
+.header h3 {
+    color: #2e7d32;
+    font-size: 1.3rem;
+    margin: 0;
+    flex: 1;
+}
+
+#CSVBtn {
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    width: 150px;
+}
+
+#CSVBtn:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+/* Manual enter area */
+.manualEnterArea {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background: whitesmoke;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Date area - forms appear next to each other at top */
+.dateArea {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 25px;
+}
+
+.dateArea form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dateArea label {
+    color: #2e7d32;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.dateArea input {
+    padding: 10px;
+    border: 2px solid #c8e6c9;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.dateArea input:focus {
+    outline: none;
+    border-color: #4caf50;
+}
+
+/* Assignment name area - now inside selectClassArea */
+.assignmentNameArea {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.assignmentNameArea label {
+    color: #2e7d32;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.assignmentNameArea input {
+    padding: 16px;
+    border: 2px solid #c8e6c9;
+    border-radius: 6px;
+    font-size: 20px;
+    transition: border-color 0.3s ease;
+    width: 500px;
+    max-width: 100%;
+}
+
+.assignmentNameArea input:focus {
+    outline: none;
+    border-color: #4caf50;
+}
+
+/* Select class area - assignment name above, buttons below */
+.selectClassArea {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    align-items: flex-start;
+}
+
+.classButtons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    min-height: 60px;
+}
+
+.selectClassArea button,
+.addClass {
+    font-size: 14px;
+    font-weight: 600;
+    border: 2px solid #4caf50;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 10px 20px;
+    background-color: white;
+    color: #4caf50;
+    width: auto;
+}
+
+.selectClassArea button:hover,
+.addClass:hover {
+    background-color: #4caf50;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+/* Checking area - preview and add button */
+.checkingArea {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.itemPreview {
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    border-left: 4px solid #4caf50;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.itemPreview p {
+    margin: 0;
+    color: #666;
+    font-style: italic;
+}
+
+.addToList {
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 15px 40px;
+    background-color: #4caf50;
+    color: white;
+    align-self: center;
+    width: 200px;
+}
+
+.addToList:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
