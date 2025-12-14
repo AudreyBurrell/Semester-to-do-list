@@ -61,7 +61,35 @@ function AddAssignmentsSemester() {
                     {/* The buttons appear all next to each other */}
                     <p id="selectAClassInstruction">Select a class:</p>
                     {/* this area will just have a bunch of buttons with different classes that have already been entered and their outline being the color that the user suggested. Next to these buttons is a button where the user can add a class, which will bring up a popup of a form where they enter class name and choose a color */}
+                    <div className="classButtonsContainer">
+                        {classes.map((classItem) => (
+                            <button 
+                                key={classItem.id}
+                                className="classButton"
+                                style={{ borderColor: classItem.color, color: classItem.color }}
+                            >
+                                {classItem.name}
+                            </button>
+                        ))}
+                    </div>
                     <button className="addClass" onClick={handleAddClassClick}>+ Add Class</button>
+                    {showAddClassForm && (
+                        <div className="addClassForm"> 
+                            <input type="text" placeholder = "Class name" value = {newClassName} onChange={(e) => setNewClassName(e.target.value)} />
+                            <div className="colorPickerArea">
+                                <label>Choose color:</label>
+                                <div className="colorOptions">
+                                    {colorOptions.map((color) => (
+                                        <div key={color.value} className={`colorOption ${selectedColor === color.value ? 'selected' : ''}`} style={{ backgroundColor: color.value }} onClick={() => setSelectedColor(color.value)} title={color.name} />
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="addOrCancelClassBtn">
+                                <button onClick={handleSaveClass}>Save</button>
+                                <button onClick={handleCancelAddClass}>Cancel</button>
+                            </div>
+                        </div>
+                    )}
                 </div>
                 <div className = "checkingArea">
                     {/*Space where the list item shows (displays the date it's due, date student should start, item in corresponding color) */}
