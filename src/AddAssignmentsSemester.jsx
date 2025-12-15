@@ -110,6 +110,31 @@ function AddAssignmentsSemester() {
         };
         reader.readAsText(file);
     };
+    // const parseCSV = text => {
+    //     const lines = text.trim().split('\n');
+    //     if (lines.length < 2) {
+    //         alert('CSV file is empty or invalid');
+    //         return;
+    //     }
+    //     const headers = lines[0].split(',').map(h => h.trim());
+    //     const nameIndex = headers.findIndex(h => h.toLowerCase().includes('assignment'));
+    //     const dueDateIndex = headers.findIndex(h => h.toLowerCase().includes('due'));
+    //     const startDateIndex = headers.findIndex(h => h.toLowerCase().includes('start'));
+    //     const classNameIndex = headers.findIndex(h => h.toLowerCase().includes('class'));
+    //     const colorIndex = headers.findIndex(h => h.toLowerCase().includes('color'));
+    //     for (let i = 1; i < lines.length; i++) {
+    //         const values = lines[i].split(',').map(v => v.trim());
+    //         if (values.length < 2) continue; 
+    //         const assignmentName = values[nameIndex];
+    //         const dueDate = values[dueDateIndex];
+    //         const startDate = values[startDateIndex];
+    //         const className = values[classNameIndex];
+    //         const colorName = values[colorIndex];
+    //         processCSVRow(assignmentName, dueDate, startDate, className, colorName);
+    //     }
+    //     setShowCSVPopup(false);
+    //     alert('CSV uploaded successfully!');
+    // };
     const parseCSV = text => {
         const lines = text.trim().split('\n');
         if (lines.length < 2) {
@@ -122,26 +147,66 @@ function AddAssignmentsSemester() {
         const startDateIndex = headers.findIndex(h => h.toLowerCase().includes('start'));
         const classNameIndex = headers.findIndex(h => h.toLowerCase().includes('class'));
         const colorIndex = headers.findIndex(h => h.toLowerCase().includes('color'));
+        const newClasses = [...classes];
+        const newAssignmentsList = {...assignmentsList};
+
         for (let i = 1; i < lines.length; i++) {
             const values = lines[i].split(',').map(v => v.trim());
             if (values.length < 2) continue; 
             const assignmentName = values[nameIndex];
-            const dueDate = values[dueDateIndex];
-            const startDate = values[startDateIndex];
+            const dueDate = convertDateFormat(values[dueDateIndex]);
+            const startDate = values[startDateIndex] ? convertDateFormat(values[startDateIndex]) : null;
             const className = values[classNameIndex];
             const colorName = values[colorIndex];
-            processCSVRow(assignmentName, dueDate, startDate, className, colorName);
+            let classObj = newClasses.find(c => c.name.toLowerCase() === className.toLowerCase());
+            if (!classObj) {
+                const colorOption = colorOptions.find(c => c.name.toLowerCase() === colorName?.toLowerCase());
+                const newColor = colorOption ? colorOption.value : '#4caf50';
+                classObj = {
+                    id: Date.now() + Math.random(),
+                    name: className,
+                    color: newColor
+                };
+                newClasses.push(classObj);
+            }
+            const assignmentData = {
+                id: Date.now() + Math.random(),
+                name: assignmentName,
+                color: classObj.color,
+                className: classObj.name
+            };
+            if (startDate && startDate <= dueDate) {
+                const start = new Date(startDate + 'T00:00:00');
+                const end = new Date(dueDate + 'T00:00:00');
+                for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+                    const dateKey = d.toISOString().split('T')[0];
+                    if (!newAssignmentsList[dateKey]) {
+                        newAssignmentsList[dateKey] = [];
+                    }
+                    newAssignmentsList[dateKey].push({...assignmentData});
+                }
+            } else {
+                if (!newAssignmentsList[dueDate]) {
+                    newAssignmentsList[dueDate] = [];
+                }
+                newAssignmentsList[dueDate].push(assignmentData);
+            }
         }
+        setClasses(newClasses);
+        setAssignmentsList(newAssignmentsList);
+        console.log(newAssignmentsList);
         setShowCSVPopup(false);
         alert('CSV uploaded successfully!');
-    };
+    }
+
+// You can now remove the processCSVRow function entirely
     const convertDateFormat = (dateStr) => {
         if (dateStr.includes('-')) {
             return dateStr;
         }
         const [month, day, year] = dateStr.split('/');
         return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-    }
+    };
     const processCSVRow = (assignmentName, dueDate, startDate, className, colorName) => {
         const formattedDueDate = convertDateFormat(dueDate);
         const formattedStartDate = startDate ? convertDateFormat(startDate) : null;

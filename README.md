@@ -19,6 +19,7 @@ I got this idea because I've been encountering a lot of different ways that peop
 * Assisting me with React syntax
 * Assisting me with CSS styling 
 * Helped me with storing the dates and some manipulation with that
+* CSV reading and manipulation
 
 ## Contact
 * **Portfolio:** AudreyBurrell.github.io
