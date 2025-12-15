@@ -180,7 +180,6 @@ function AddAssignmentsSemester() {
                 }
                 newAssignmentsList[formattedDueDate].push(assignmentData);
             }
-            console.log(newAssignmentsList);
             return newAssignmentsList;
         })
     }
@@ -250,8 +249,8 @@ function AddAssignmentsSemester() {
                             <div className="previewContent">
                                 <h4>Preview:</h4>
                                 {assignmentName && <p className="previewAssignment">{assignmentName}</p>}
-                                {dueDate && <p className="previewDate">Due: {new Date(dueDate).toLocaleDateString()}</p>}
-                                {startDate && <p className="previewDate">Start: {new Date(startDate).toLocaleDateString()}</p>}
+                                {dueDate && <p className="previewDate">Due: {dueDate}</p>}
+                                {startDate && <p className="previewDate">Start: {startDate}</p>}
                                 {selectedClass && (
                                     <p
                                         className="previewClass"
