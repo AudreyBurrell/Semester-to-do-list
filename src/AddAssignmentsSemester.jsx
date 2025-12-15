@@ -1,5 +1,5 @@
 import './AddAssignmentsSemester.css'
-import { useState } from 'react';  //Allows things to be updated and stored
+import { useState, useRef } from 'react';  //Allows things to be updated and stored
 
 function AddAssignmentsSemester() {
     //add class functionality stuff
@@ -95,6 +95,95 @@ function AddAssignmentsSemester() {
     const handleCSVClick = () => {
         setShowCSVPopup(!showCSVPopup);
     };
+    //the actual uploading and parsing of the CSV stuff.
+    const fileInputRef = useRef(null);
+    const handleUploadClick = () => {
+        fileInputRef.current.click();
+    };
+    const handleFileSelect = (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const text = e.target.result;
+            parseCSV(text);
+        };
+        reader.readAsText(file);
+    };
+    const parseCSV = text => {
+        const lines = text.trim().split('\n');
+        if (lines.length < 2) {
+            alert('CSV file is empty or invalid');
+            return;
+        }
+        const headers = lines[0].split(',').map(h => h.trim());
+        const nameIndex = headers.findIndex(h => h.toLowerCase().includes('assignment'));
+        const dueDateIndex = headers.findIndex(h => h.toLowerCase().includes('due'));
+        const startDateIndex = headers.findIndex(h => h.toLowerCase().includes('start'));
+        const classNameIndex = headers.findIndex(h => h.toLowerCase().includes('class'));
+        const colorIndex = headers.findIndex(h => h.toLowerCase().includes('color'));
+        for (let i = 1; i < lines.length; i++) {
+            const values = lines[i].split(',').map(v => v.trim());
+            if (values.length < 2) continue; 
+            const assignmentName = values[nameIndex];
+            const dueDate = values[dueDateIndex];
+            const startDate = values[startDateIndex];
+            const className = values[classNameIndex];
+            const colorName = values[colorIndex];
+            processCSVRow(assignmentName, dueDate, startDate, className, colorName);
+        }
+        setShowCSVPopup(false);
+        alert('CSV uploaded successfully!');
+    };
+    const convertDateFormat = (dateStr) => {
+        if (dateStr.includes('-')) {
+            return dateStr;
+        }
+        const [month, day, year] = dateStr.split('/');
+        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    }
+    const processCSVRow = (assignmentName, dueDate, startDate, className, colorName) => {
+        const formattedDueDate = convertDateFormat(dueDate);
+        const formattedStartDate = startDate ? convertDateFormat(startDate) : null;
+        let classObj = classes.find(c => c.name.toLowerCase() === className.toLowerCase());
+        if (!classObj) {
+            const colorOption = colorOptions.find(c => c.name.toLowerCase() === colorName?.toLowerCase());
+            const newColor = colorOption ? colorOption.value : '#4caf50';
+            classObj = {
+                id: Date.now() + Math.random(),
+                name: className,
+                color: newColor
+            };
+            setClasses(prevClasses => [...prevClasses, classObj]);
+        }
+        const assignmentData = {
+            id: Date.now() + Math.random(),
+            name: assignmentName,
+            color: classObj.color,
+            className: classObj.name
+        };
+        setAssignmentsList(prevList => {
+            const newAssignmentsList = {...prevList};
+            if (formattedStartDate && formattedStartDate <= formattedDueDate) {
+                const start = new Date(formattedStartDate);
+                const end = new Date(formattedDueDate);
+                for (let date = new Date(start); date <= end; date.setDate(date.getDate() + 1)) {
+                    const dateKey = date.toISOString().split('T')[0];
+                    if (!newAssignmentsList[dateKey]) {
+                        newAssignmentsList[dateKey] = [];
+                    }
+                    newAssignmentsList[dateKey].push({...assignmentData});
+                }
+            } else {
+                if (!newAssignmentsList[formattedDueDate]) {
+                    newAssignmentsList[formattedDueDate] = [];
+                }
+                newAssignmentsList[formattedDueDate].push(assignmentData);
+            }
+            console.log(newAssignmentsList);
+            return newAssignmentsList;
+        })
+    }
 
 
     return (
@@ -188,9 +277,16 @@ function AddAssignmentsSemester() {
                             {' '} the Assignment Tracker template to begin.
                         </p>
                         <p> Download it into a CSV and upload here </p>
+                        <input
+                            type="file"
+                            ref={fileInputRef}
+                            accept=".csv"
+                            style = {{ display: 'none' }}
+                            onChange={handleFileSelect}
+                        />
                         <div className="uploadCSVBtnContainer">
                             <button className="closeUploadCSV" onClick={handleCSVClick}>Close</button>
-                            <button className="uploadCSVBtn">Upload</button>
+                            <button className="uploadCSVBtn" onClick={handleUploadClick}>Upload</button>
                         </div>
                     </div>
                 </div>
@@ -206,3 +302,6 @@ export default AddAssignmentsSemester;
 //Each item in the list will be it's own list going in this order:
 //Color, item (just the text that they inputted)
 //When they put in a start date, the item will add to each date in the main list from start to finish
+
+//DON'T FORGET TO ADD A BUTTON THAT GOES TO ANOTHER PAGE
+//Clicking this button first pulls up a popup that displays all the assignments entered (organized by date ofc) and then the button that actually goes on
