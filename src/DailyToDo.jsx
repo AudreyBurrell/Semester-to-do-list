@@ -16,9 +16,22 @@ function DailyToDo() {
         month: 'long',
         day: 'numeric'
     });
+    //getting the items specific to the date.
+
     return (
         <div>
             {/* the buttons for going to next/previous day, month, year go up here */}
+            <div className="navigationBtnContainer"> {/*these two divs apepar on opposite sides of the currentDayCard*/}
+                <div className="prevNextBtn">
+                    <button>&larr; Prev</button> {/*the first appears gray, the second is green*/}
+                    <button>Next &rarr;</button>
+                </div>
+                <div className="differentViewBtn">
+                    <button disabled>Day View</button>
+                    <button>Week View</button>
+                    <button>Month View</button>
+                </div>
+            </div>
             <div className="currentDayCard">
                 <h1>{formattedText}</h1>
             </div>
