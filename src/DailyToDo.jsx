@@ -1,30 +1,46 @@
 import './DailyToDo.css'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useState, useRef } from 'react';
 
 function DailyToDo() {
     const location = useLocation();
     const { assignments, classes } =  location.state || { assignments: {}, classes: [] };
     console.log('Received assignments:', assignments);
     console.log('Received classes:', classes);
-    //getting the current date:
+    //previous and next buttons
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const handlePrevDay = () => {
+        setCurrentDate(prev => {
+            const newDate = new Date(prev)
+            newDate.setDate(newDate.getDate() - 1);
+            return newDate;
+        });
+    };
+    const handleNextDay = () => {
+        setCurrentDate(prev => {
+            const newDate = new Date(prev);
+            newDate.setDate(newDate.getDate() + 1);
+            return newDate;
+        });
+    }
+    //getting the header to display with the right date:
     const today = new Date();
     const year = today.getFullYear();
     const month = today.getMonth() + 1;
     const day = today.getDate();
-    const formattedText = today.toLocaleDateString('en-US', {
+    const formattedText = currentDate.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
     });
-    //getting the items specific to the date.
 
     return (
         <div>
             {/* the buttons for going to next/previous day, month, year go up here */}
             <div className="navigationBtnContainer"> {/*these two divs apepar on opposite sides of the currentDayCard*/}
                 <div className="prevNextBtn">
-                    <button>&larr; Prev</button> {/*the first appears gray, the second is green*/}
-                    <button>Next &rarr;</button>
+                    <button onClick={handlePrevDay}>&larr; Prev</button> {/*the first appears gray, the second is green*/}
+                    <button onClick={handleNextDay}>Next &rarr;</button>
                 </div>
                 <div className="differentViewBtn">
                     <button disabled>Day View</button>
