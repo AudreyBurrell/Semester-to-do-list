@@ -110,31 +110,6 @@ function AddAssignmentsSemester() {
         };
         reader.readAsText(file);
     };
-    // const parseCSV = text => {
-    //     const lines = text.trim().split('\n');
-    //     if (lines.length < 2) {
-    //         alert('CSV file is empty or invalid');
-    //         return;
-    //     }
-    //     const headers = lines[0].split(',').map(h => h.trim());
-    //     const nameIndex = headers.findIndex(h => h.toLowerCase().includes('assignment'));
-    //     const dueDateIndex = headers.findIndex(h => h.toLowerCase().includes('due'));
-    //     const startDateIndex = headers.findIndex(h => h.toLowerCase().includes('start'));
-    //     const classNameIndex = headers.findIndex(h => h.toLowerCase().includes('class'));
-    //     const colorIndex = headers.findIndex(h => h.toLowerCase().includes('color'));
-    //     for (let i = 1; i < lines.length; i++) {
-    //         const values = lines[i].split(',').map(v => v.trim());
-    //         if (values.length < 2) continue; 
-    //         const assignmentName = values[nameIndex];
-    //         const dueDate = values[dueDateIndex];
-    //         const startDate = values[startDateIndex];
-    //         const className = values[classNameIndex];
-    //         const colorName = values[colorIndex];
-    //         processCSVRow(assignmentName, dueDate, startDate, className, colorName);
-    //     }
-    //     setShowCSVPopup(false);
-    //     alert('CSV uploaded successfully!');
-    // };
     const parseCSV = text => {
         const lines = text.trim().split('\n');
         if (lines.length < 2) {
@@ -248,6 +223,12 @@ function AddAssignmentsSemester() {
             return newAssignmentsList;
         })
     }
+    //continue to to-do list code
+    const hasAssignments = Object.keys(assignmentsList).length > 0;
+    const handleGoToList = () => {
+        console.log('Navigating to to-do list with:', assignmentsList)
+        //ADD THE NAVIGATION PART HERE
+    }
 
 
     return (
@@ -333,6 +314,11 @@ function AddAssignmentsSemester() {
                     <button className="addToListBtn" onClick={handleAddToList}>Add to List</button>
                 </div>
             </div>
+            {hasAssignments && (
+                <div className="navigationArea">
+                    <button className="goToTodoListBtn" onClick={handleGoToList}> Go to To-Do List &rarr; </button>
+                </div>
+            )}
             {showCSVPopup && (
                 <div className="popupOverlay">
                     <div className="CSVPopup">
