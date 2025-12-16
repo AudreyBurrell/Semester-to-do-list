@@ -6,6 +6,7 @@ import AddOrView from './AddOrView'
 //and then add more routes to the list below
 import DailyToDo from './DailyToDo'
 import AddAssignmentsSemester from './AddAssignmentsSemester'
+import Login from './Login'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/AddOrView" element={<AddOrView />} />
           <Route path="/DailyToDo" element={<DailyToDo />} />
           <Route path="/AddAssignmentsSemester" element={<AddAssignmentsSemester />} />
+          <Route path="/Login" element={<Login />} />
         </Routes>
     </BrowserRouter>
     
