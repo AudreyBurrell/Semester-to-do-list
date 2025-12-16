@@ -18,7 +18,7 @@ function Login() {
         }
     };
     return (
-        <div className="mainCard">
+        <div className="loginCard">
             <p>Login to Assignment Tracker</p>
             <div className="formArea">
                 <label htmlFor="username">Username:</label>
