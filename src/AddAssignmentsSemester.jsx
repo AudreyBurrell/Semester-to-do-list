@@ -1,5 +1,6 @@
 import './AddAssignmentsSemester.css'
 import { useState, useRef } from 'react';  //Allows things to be updated and stored
+import { useNavigate } from 'react-router-dom';
 
 function AddAssignmentsSemester() {
     //add class functionality stuff
@@ -225,9 +226,16 @@ function AddAssignmentsSemester() {
     }
     //continue to to-do list code
     const hasAssignments = Object.keys(assignmentsList).length > 0;
+    const navigate = useNavigate();
     const handleGoToList = () => {
         console.log('Navigating to to-do list with:', assignmentsList)
         //ADD THE NAVIGATION PART HERE
+        navigate('/DailyToDo', {
+            state: {
+                assignments: assignmentsList,
+                classes: classes
+            }
+        });
     }
 
 

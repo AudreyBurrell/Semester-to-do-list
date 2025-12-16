@@ -1,6 +1,11 @@
 import './DailyToDo.css'
+import { useLocation } from 'react-router-dom';
 
 function DailyToDo() {
+    const location = useLocation();
+    const { assignments, classes } =  location.state || { assignments: {}, classes: [] };
+    console.log('Received assignments:', assignments);
+    console.log('Received classes:', classes);
     return (
         <div>
             <h1>Entered To-Do List</h1>
