@@ -7,8 +7,15 @@ function DailyToDo() {
     const { assignments, classes } =  location.state || { assignments: {}, classes: [] };
     console.log('Received assignments:', assignments);
     console.log('Received classes:', classes);
-    //previous and next buttons
     const [currentDate, setCurrentDate] = useState(new Date());
+    //getting the assignments based off the date
+    const getAssignmentsForDate = (currentDate) => {
+        const dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`;
+        console.log(assignments[dateKey] || []);
+        return assignments[dateKey] || [];
+    };
+    const todaysAssignmnets = getAssignmentsForDate(currentDate);
+     //previous and next buttons
     const handlePrevDay = () => {
         setCurrentDate(prev => {
             const newDate = new Date(prev)
@@ -24,15 +31,12 @@ function DailyToDo() {
         });
     }
     //getting the header to display with the right date:
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth() + 1;
-    const day = today.getDate();
     const formattedText = currentDate.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
     });
+
 
     return (
         <div>
