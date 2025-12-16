@@ -7,16 +7,18 @@ import AddOrView from './AddOrView'
 import DailyToDo from './DailyToDo'
 import AddAssignmentsSemester from './AddAssignmentsSemester'
 import Login from './Login'
+import CreateAccount from './CreateAccount'
 
 function App() {
   return (
     <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/CreateAccount" element={<CreateAccount />} />
           <Route path="/AddOrView" element={<AddOrView />} />
           <Route path="/DailyToDo" element={<DailyToDo />} />
           <Route path="/AddAssignmentsSemester" element={<AddAssignmentsSemester />} />
-          <Route path="/Login" element={<Login />} />
         </Routes>
     </BrowserRouter>
     

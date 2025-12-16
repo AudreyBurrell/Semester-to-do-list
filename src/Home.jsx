@@ -9,6 +9,7 @@ function Home() {
     };
     const handleCreateAccount = () => {
         console.log("Create Account clicked!")
+        navigate('/CreateAccount');
     };
     return (
         <div className = "mainCard">
