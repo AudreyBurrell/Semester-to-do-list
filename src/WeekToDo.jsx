@@ -3,6 +3,33 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
 function WeekToDo() {
+    //fetching from state
+    const location = useLocation();
+    const { assignments, classes } =  location.state || { assignments: {}, classes: [] };
+    console.log('Received assignments:', assignments);
+    console.log('Received classes:', classes);
+
+    
+    //adding code for going to day view or month view
+    const navigate = useNavigate();
+    const handleDayView = () => {
+        console.log('Day view pressed');
+        navigate('/DailyToDo', {
+            state: {
+                assignments: assignments,
+                classes: classes
+            }
+        });
+    }
+    const handleMonthView = () => {
+        console.log('Month view pressed');
+        navigate('/MonthToDo', {
+            state: {
+                assignments: assignments,
+                classes: classes
+            }
+        });
+    }
     return (
         <div>
             <div className="navigationBtnContainer">
@@ -11,9 +38,9 @@ function WeekToDo() {
                     <button>Next &rarr;</button>
                 </div>
                 <div className="differentViewBtn">
-                    <button>Day View</button>
+                    <button onClick={handleDayView}>Day View</button>
                     <button disabled>Week View</button>
-                    <button>Month View</button>
+                    <button onClick={handleMonthView}>Month View</button>
                 </div>
             </div>
             <div className="dayCardContainer">
