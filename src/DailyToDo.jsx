@@ -14,7 +14,9 @@ function DailyToDo() {
         console.log(assignments[dateKey] || []);
         return assignments[dateKey] || [];
     };
-    const todaysAssignmnets = getAssignmentsForDate(currentDate);
+    const todaysAssignments = getAssignmentsForDate(currentDate);
+    //the actual items inside the list
+    const [completedAssignments, setCompletedAssignments] = useState({});
      //previous and next buttons
     const handlePrevDay = () => {
         setCurrentDate(prev => {
@@ -36,6 +38,25 @@ function DailyToDo() {
         month: 'long',
         day: 'numeric'
     });
+    //getting the items to complete
+    const handleToggleComplete = (index) => {
+        const dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`;
+        setCompletedAssignments(prev => {
+            const currentCompleted = prev[dateKey] || [];
+            const isCompleted = currentCompleted.includes(index);   
+            if (isCompleted) {
+                return {
+                    ...prev,
+                    [dateKey]: currentCompleted.filter(i => i !== index)
+                };
+            } else {
+                return {
+                    ...prev,
+                    [dateKey]: [...currentCompleted, index]
+                };
+            }     
+        });
+    }
 
 
     return (
@@ -54,6 +75,26 @@ function DailyToDo() {
             </div>
             <div className="currentDayCard">
                 <h1>{formattedText}</h1>
+                {todaysAssignments.length === 0 ? (
+                    <p>No assignments for {formattedText}</p>
+                ) : (
+                    <div className="assignmentsList">
+                        {todaysAssignments.map((assignment, index) => {
+                            const dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`;
+                            const isCompleted = completedAssignments[dateKey]?.includes(index) || false;
+                            return (
+                                <div key={index} className="assignmentItem">
+                                    <span style={{ textDecoration: isCompleted ? 'line-through' : 'none' }}>
+                                        {assignment.name}
+                                    </span>
+                                    <button onClick={() => handleToggleComplete(index)}>
+                                        {isCompleted ? '✓ Done' : 'Mark Complete'}
+                                    </button>
+                                </div>
+                            ) ;
+                        })}
+                    </div>
+                )}
             </div>
         </div>
     );
