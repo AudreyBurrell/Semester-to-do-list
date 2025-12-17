@@ -83,7 +83,7 @@ function DailyToDo() {
                             const dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`;
                             const isCompleted = completedAssignments[dateKey]?.includes(index) || false;
                             return (
-                                <div key={index} className="assignmentItem">
+                                <div key={index} className="assignmentItem" style={{ borderLeftColor: assignment.color }}>
                                     <span style={{ textDecoration: isCompleted ? 'line-through' : 'none' }}>
                                         {assignment.name}
                                     </span>

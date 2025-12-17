@@ -1,118 +1,176 @@
+/* Main container */
 body {
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-    min-height: 100vh;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    background-color: #f5f7fa;
 }
 
+/* Navigation buttons container */
+/* Navigation buttons container */
 .navigationBtnContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0;
-    padding: 20px;
-    box-sizing: border-box;
+    max-width: 900px;
+    margin: 0 auto 30px auto;
+    padding: 20px 0;
+    gap: 60px;
 }
 
+/* Previous/Next buttons */
 .prevNextBtn {
     display: flex;
-    gap: 6px;
+    gap: 10px;
 }
 
 .prevNextBtn button {
-    padding: 8px 12px;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 600;
     border: none;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 500;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.2s ease;
+    width: auto;
     white-space: nowrap;
 }
 
 .prevNextBtn button:first-child {
-    background-color: #757575;
+    background-color: #9ca3af;
     color: white;
 }
 
 .prevNextBtn button:first-child:hover {
-    background-color: #616161;
+    background-color: #6b7280;
 }
 
 .prevNextBtn button:last-child {
-    background-color: #4caf50;
+    background-color: #28a745;
     color: white;
 }
 
 .prevNextBtn button:last-child:hover {
-    background-color: #45a049;
+    background-color: #218838;
 }
 
+/* View buttons */
 .differentViewBtn {
     display: flex;
-    gap: 6px;
+    gap: 10px;
 }
 
 .differentViewBtn button {
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
     background-color: white;
-    color: #333;
-    padding: 8px 12px;
-    border: 2px solid #ddd;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 500;
+    color: #4b5563;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.2s ease;
+    width: auto;
     white-space: nowrap;
 }
 
 .differentViewBtn button:hover:not(:disabled) {
-    border-color: #4caf50;
-    color: #4caf50;
+    background-color: #f3f4f6;
+    border-color: #9ca3af;
 }
 
 .differentViewBtn button:disabled {
-    background-color: #4caf50;
+    background-color: #4b5563;
     color: white;
-    border-color: #4caf50;
     cursor: default;
+    border-color: #4b5563;
+    pointer-events: none;
 }
 
+/* Current day card */
 .currentDayCard {
-    max-width: 1200px;
+    max-width: 900px;
+    min-height: 500px;
     margin: 0 auto;
-    padding: 40px;
+    padding: 30px;
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
 }
 
 .currentDayCard h1 {
+    margin: 0 0 30px 0;
     font-size: 32px;
-    font-weight: 600;
-    color: #333;
-    margin: 0;
+    color: #2c3e50;
+    text-align: center;
+    border-bottom: 3px solid #28a745;
+    padding-bottom: 15px;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-    .navigationBtnContainer {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .prevNextBtn,
-    .differentViewBtn {
-        width: 100%;
-        justify-content: center;
-    }
-    
-    .currentDayCard {
-        padding: 30px 20px;
-    }
-    
-    .currentDayCard h1 {
-        font-size: 24px;
-    }
+.currentDayCard p {
+    text-align: center;
+    color: #6c757d;
+    font-size: 18px;
+    margin: 40px 0;
+}
+
+/* Assignments list */
+.assignmentsList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.assignmentItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    background: linear-gradient(to right, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 10px;
+    border-left: 5px solid #28a745;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.assignmentItem:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.assignmentItem span {
+    flex: 1;
+    font-size: 18px;
+    color: #2c3e50;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.assignmentItem span[style*="line-through"] {
+    color: #95a5a6;
+    opacity: 0.6;
+}
+
+.assignmentItem button {
+    padding: 10px 24px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    margin-left: 20px;
+}
+
+.assignmentItem button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.assignmentItem button:active {
+    transform: scale(0.98);
 }
