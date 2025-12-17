@@ -8,6 +8,8 @@ import DailyToDo from './DailyToDo'
 import AddAssignmentsSemester from './AddAssignmentsSemester'
 import Login from './Login'
 import CreateAccount from './CreateAccount'
+import WeekToDo from './WeekToDo'
+import MonthToDo from './MonthToDo'
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
           <Route path="/AddOrView" element={<AddOrView />} />
           <Route path="/DailyToDo" element={<DailyToDo />} />
           <Route path="/AddAssignmentsSemester" element={<AddAssignmentsSemester />} />
+          <Route path="/WeekToDo" element={<WeekToDo />} />
+          <Route path="/MonthToDo" element={<MonthToDo />} />
         </Routes>
     </BrowserRouter>
     

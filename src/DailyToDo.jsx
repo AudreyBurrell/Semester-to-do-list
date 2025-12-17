@@ -57,20 +57,30 @@ function DailyToDo() {
             }     
         });
     }
+    //the week and month navigation
+    const navigate = useNavigate();
+    const handleWeekView = () => {
+        console.log('Week view pressed');
+        navigate('/WeekToDo');
+    }
+    const handleMonthView = () => {
+        console.log('Month view pressed');
+        navigate('/MonthToDo');
+    }
+    
 
 
     return (
         <div>
-            {/* the buttons for going to next/previous day, month, year go up here */}
-            <div className="navigationBtnContainer"> {/*these two divs apepar on opposite sides of the currentDayCard*/}
+            <div className="navigationBtnContainer"> 
                 <div className="prevNextBtn">
-                    <button onClick={handlePrevDay}>&larr; Prev</button> {/*the first appears gray, the second is green*/}
+                    <button onClick={handlePrevDay}>&larr; Prev</button> 
                     <button onClick={handleNextDay}>Next &rarr;</button>
                 </div>
                 <div className="differentViewBtn">
                     <button disabled>Day View</button>
-                    <button>Week View</button>
-                    <button>Month View</button>
+                    <button onClick={handleWeekView}>Week View</button>
+                    <button onClick={handleMonthView}>Month View</button>
                 </div>
             </div>
             <div className="currentDayCard">
@@ -102,13 +112,5 @@ function DailyToDo() {
 
 export default DailyToDo;
 
-//Things that I need
-//A header displaying the date
-// Buttons that change the view from daily to weekly/monthly
-//A place where the list actually shows up with each item in the list with the ability to check off
-//a place where users can go back in and add items manually 
-
-//For the list stuff
-//First thing that I really need to do is figure out how to take apart the assignments list into individual lists per date (or even figure out if that's needed)
 
 
