@@ -8,6 +8,33 @@ function WeekToDo() {
     const { assignments, classes } =  location.state || { assignments: {}, classes: [] };
     console.log('Received assignments:', assignments);
     console.log('Received classes:', classes);
+    //getting the current date to determine the Sunday date and then get the rest of the dates
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const getPastSunday = (date) => {
+        const day = date.getDay();
+        const diff = day;
+        const sunday = new Date(date);
+        sunday.setDate(date.getDate() - diff);
+        console.log(sunday);
+        return sunday;
+    };
+    const getWeekDays = (date) => {
+        const sunday = getPastSunday(date);
+        const weekDays = [];
+        for (let i = 0; i < 7; i++) {
+            const day = new Date(sunday);
+            day.setDate(sunday.getDate() + i);
+            const year = day.getFullYear();
+            const month = String(day.getMonth() + 1).padStart(2, '0');
+            const dayOfMonth = String(day.getDate()).padStart(2, '0');
+            const formattedDate = `${year}-${month}-${dayOfMonth}`;
+            weekDays.push(formattedDate);
+        }
+        return weekDays;
+    };
+    const weekDays = getWeekDays(currentDate);
+    console.log(weekDays);
+
 
     
     //adding code for going to day view or month view
