@@ -61,14 +61,24 @@ function DailyToDo() {
     const navigate = useNavigate();
     const handleWeekView = () => {
         console.log('Week view pressed');
-        navigate('/WeekToDo');
+        //need to save the assignment data
+        navigate('/WeekToDo', {
+            state: {
+                assignments: assignments,
+                classes: classes
+            }
+        });
     }
     const handleMonthView = () => {
         console.log('Month view pressed');
-        navigate('/MonthToDo');
+        navigate('/MonthToDo', {
+            state: {
+                assignments: assignments,
+                classes: classes
+            }
+        });
     }
     
-
 
     return (
         <div>
