@@ -1,0 +1,240 @@
+/* Main container */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    background-color: #f5f7fa;
+}
+
+/* Navigation buttons container */
+.navigationBtnContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1600px;
+    margin: 0 auto 30px auto;
+    padding: 20px;
+    gap: 60px;
+}
+
+/* Previous/Next buttons */
+.prevNextBtn {
+    display: flex;
+    gap: 10px;
+}
+
+.prevNextBtn button {
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: auto;
+    white-space: nowrap;
+}
+
+.prevNextBtn button:first-child {
+    background-color: #9ca3af;
+    color: white;
+}
+
+.prevNextBtn button:first-child:hover {
+    background-color: #6b7280;
+}
+
+.prevNextBtn button:last-child {
+    background-color: #28a745;
+    color: white;
+}
+
+.prevNextBtn button:last-child:hover {
+    background-color: #218838;
+}
+
+/* View buttons */
+.differentViewBtn {
+    display: flex;
+    gap: 10px;
+}
+
+.differentViewBtn button {
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    background-color: white;
+    color: #4b5563;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: auto;
+    white-space: nowrap;
+}
+
+.differentViewBtn button:hover:not(:disabled) {
+    background-color: #f3f4f6;
+    border-color: #9ca3af;
+}
+
+.differentViewBtn button:disabled {
+    background-color: #4b5563;
+    color: white;
+    cursor: default;
+    border-color: #4b5563;
+    pointer-events: none;
+}
+
+/* Day cards container */
+.dayCardContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 20px 40px 20px;
+}
+
+/* Individual day cards */
+.sundayCard,
+.mondayCard,
+.tuesdayCard,
+.wednesdayCard,
+.thursdayCard,
+.fridayCard,
+.saturdayCard {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    min-height: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.sundayCard:hover,
+.mondayCard:hover,
+.tuesdayCard:hover,
+.wednesdayCard:hover,
+.thursdayCard:hover,
+.fridayCard:hover,
+.saturdayCard:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+}
+
+/* Day card headers */
+.sundayCard h4,
+.mondayCard h4,
+.tuesdayCard h4,
+.wednesdayCard h4,
+.thursdayCard h4,
+.fridayCard h4,
+.saturdayCard h4 {
+    margin: 0 0 15px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c3e50;
+    border-bottom: 3px solid #28a745;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+/* Date display */
+.date-display {
+    font-size: 14px;
+    color: #6c757d;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+/* Assignment items in day cards */
+.assignment-item {
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    background: linear-gradient(to right, #f8f9fa 0%, #ffffff 100%);
+    border-left: 5px solid #28a745;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #2c3e50;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.assignment-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* More items indicator */
+.more-items {
+    margin-top: auto;
+    padding-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: #6c757d;
+    font-weight: 600;
+}
+
+/* Empty state */
+.empty-day {
+    text-align: center;
+    color: #6c757d;
+    font-size: 14px;
+    margin-top: 40px;
+    font-style: italic;
+}
+
+/* Responsive design */
+@media (max-width: 1400px) {
+    .dayCardContainer {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 1024px) {
+    .dayCardContainer {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .navigationBtnContainer {
+        flex-direction: column;
+        gap: 20px;
+        padding: 15px;
+    }
+
+    .prevNextBtn,
+    .differentViewBtn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .dayCardContainer {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        padding: 0 15px 30px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dayCardContainer {
+        grid-template-columns: 1fr;
+    }
+
+    .prevNextBtn,
+    .differentViewBtn {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .prevNextBtn button,
+    .differentViewBtn button {
+        width: 100%;
+    }
+}
