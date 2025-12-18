@@ -50,9 +50,6 @@ function WeekToDo() {
     const fridayAssignments = getAssignmentsForDate(weekDays[5]);
     const saturdayAssignments = getAssignmentsForDate(weekDays[6]);
 
-    console.log(sundayAssignments);
-
-    
     //adding code for going to day view or month view
     const navigate = useNavigate();
     const handleDayView = () => {
@@ -73,12 +70,24 @@ function WeekToDo() {
             }
         });
     }
+    //the next and previous buttons
+    const handlePrevWeek = () => {
+        const newDate = new Date(currentDate);
+        newDate.setDate(currentDate.getDate() - 7);
+        setCurrentDate(newDate);
+    };
+    const handleNextWeek = () => {
+        const newDate = new Date(currentDate);
+        newDate.setDate(currentDate.getDate() + 7);
+        setCurrentDate(newDate);
+    }
+
     return (
         <div>
             <div className="navigationBtnContainer">
                 <div className="prevNextBtn">
-                    <button>&larr; Prev</button> 
-                    <button>Next &rarr;</button>
+                    <button onClick={handlePrevWeek}>&larr; Prev</button> 
+                    <button onClick={handleNextWeek}>Next &rarr;</button>
                 </div>
                 <div className="differentViewBtn">
                     <button onClick={handleDayView}>Day View</button>
@@ -94,13 +103,13 @@ function WeekToDo() {
                         <div className="empty-day">No Assignments</div>
                     ) : (
                         <>
-                            {sundayAssignments.slice(0, 3).map(([key, assignment]) => (
+                            {sundayAssignments.slice(0, 4).map(([key, assignment]) => (
                                 <div key={key} style={{ color: assignment.color }} className="assignment-item">
                                     {assignment.name}
                                 </div>
                             ))}
-                            {sundayAssignments.length > 3 && (
-                                <div className="more-items">+{sundayAssignments.length - 3} more</div>
+                            {sundayAssignments.length > 4 && (
+                                <div className="more-items">+{sundayAssignments.length - 4} more</div>
                             )}
                         </>
                     )} 
@@ -112,13 +121,13 @@ function WeekToDo() {
                         <div className="empty-day">No Assignments</div>
                     ) : (
                         <>
-                            {mondayAssignments.slice(0, 3).map(([key, assignment]) => (
+                            {mondayAssignments.slice(0, 4).map(([key, assignment]) => (
                                 <div key={key} style={{ color: assignment.color }} className="assignment-item">
                                     {assignment.name}
                                 </div>
                             ))}
-                            {mondayAssignments.length > 3 && (
-                                <div className="more-items">+{mondayAssignments.length - 3} more</div>
+                            {mondayAssignments.length > 4 && (
+                                <div className="more-items">+{mondayAssignments.length - 4} more</div>
                             )}
                         </>
                     )}
@@ -130,13 +139,13 @@ function WeekToDo() {
                         <div className="empty-day">No Assignments</div>
                     ) : (
                         <>
-                            {tuesdayAssignments.slice(0, 3).map(([key, assignment]) => (
+                            {tuesdayAssignments.slice(0, 4).map(([key, assignment]) => (
                                 <div key={key} style={{ color: assignment.color }} className="assignment-item">
                                     {assignment.name}
                                 </div>
                             ))}
-                            {tuesdayAssignments.length > 3 && (
-                                <div className="more-items">+{tuesdayAssignments.length - 3} more</div>
+                            {tuesdayAssignments.length > 4 && (
+                                <div className="more-items">+{tuesdayAssignments.length - 4} more</div>
                             )}
                         </>
                     )}
@@ -148,13 +157,13 @@ function WeekToDo() {
                         <div className="empty-day">No Assignments</div>
                     ) : (
                         <>
-                            {wednesdayAssignments.slice(0, 3).map(([key, assignment]) => (
+                            {wednesdayAssignments.slice(0, 4).map(([key, assignment]) => (
                                 <div key={key} style={{ color: assignment.color }} className="assignment-item">
                                     {assignment.name}
                                 </div>
                             ))}
-                            {wednesdayAssignments.length > 3 && (
-                                <div className="more-items">+{wednesdayAssignments.length - 3} more</div>
+                            {wednesdayAssignments.length > 4 && (
+                                <div className="more-items">+{wednesdayAssignments.length - 4} more</div>
                             )}
                         </>
                     )}
@@ -166,13 +175,13 @@ function WeekToDo() {
                         <div className="empty-day">No Assignments</div>
                     ) : (
                         <>
-                            {thursdayAssignments.slice(0, 3).map(([key, assignment]) => (
+                            {thursdayAssignments.slice(0, 4).map(([key, assignment]) => (
                                 <div key={key} style = {{ color: assignment.color }} className="assignment-item">
                                     {assignment.name}
                                 </div>
                             ))}
-                            {thursdayAssignments.length > 3 && (
-                                <div className="more-items">+{thursdayAssignments.length - 3} more</div>
+                            {thursdayAssignments.length > 4 && (
+                                <div className="more-items">+{thursdayAssignments.length - 4} more</div>
                             )}
                         </>
                     )}
@@ -184,13 +193,13 @@ function WeekToDo() {
                         <div className="empty-day">No Assignments</div>
                     ) : (
                         <>
-                            {fridayAssignments.slice(0, 3).map(([key, assignment]) => (
+                            {fridayAssignments.slice(0, 4).map(([key, assignment]) => (
                                 <div key={key} style= {{ color: assignment.color }} className="assignment-item">
                                     {assignment.name}
                                 </div>
                             ))}
-                            {fridayAssignments.length > 3 && (
-                                <div className="more-items">+{fridayAssignments.length - 3} more</div>
+                            {fridayAssignments.length > 4 && (
+                                <div className="more-items">+{fridayAssignments.length - 4} more</div>
                             )}
                         </>
                     )}
@@ -202,13 +211,13 @@ function WeekToDo() {
                         <div className="empty-day">No Assignments</div>
                     ) : (
                         <>
-                            {saturdayAssignments.slice(0, 3).map(([key, assignment]) => {
+                            {saturdayAssignments.slice(0, 4).map(([key, assignment]) => {
                                 <div key={key} style= {{ color: assignment.color }} className="assignment-item">
                                     {assignment.name}
                                 </div>
                             })}
-                            {saturdayAssignments.length > 3 && (
-                                <div className="more-items">+{saturdayAssignments.length - 3} more</div>
+                            {saturdayAssignments.length > 4 && (
+                                <div className="more-items">+{saturdayAssignments.length - 4} more</div>
                             )}
                         </>
                     )}
