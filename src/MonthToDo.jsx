@@ -6,13 +6,30 @@ function MonthToDo() {
     //fetching from state
     const location = useLocation();
     const { assignments, classes } =  location.state || { assignments: {}, classes: [] };
-    console.log('Entering week to do');
+    console.log('Entering month to do');
     console.log('Received assignments:', assignments);
     console.log('Received classes:', classes); 
+    //getting the current date (and month and year for the header)
+    let monthName = '';
+    let yearNumber = '';
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const getMonth = (date) => {
+        const day = new Date(date);
+        const month = day.getMonth();
+        const monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'Decemeber'];
+        return monthList[month];
+    }
+    monthName = getMonth(currentDate);
+    const getYear = (date) => {
+        const day = new Date(date);
+        const year = day.getFullYear(date);
+        return year;
+    }
+    yearNumber = getYear(currentDate);
 
 
     //day view and week view functionality
-    navigate = useNavigate();
+    const navigate = useNavigate();
     const handleDayBtn = () => {
         console.log('Day view pressed');
         navigate('/DailyToDo', {
@@ -46,7 +63,9 @@ function MonthToDo() {
                 </div>
             </div>
             <div className="calanderArea">
-
+                <div className="header">
+                    <h3>{monthName}, {yearNumber}</h3>
+                </div>
             </div>
         </div>
     )
