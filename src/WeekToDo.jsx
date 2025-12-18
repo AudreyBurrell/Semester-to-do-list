@@ -228,9 +228,3 @@ function WeekToDo() {
 }
 
 export default WeekToDo; 
-
-//things that I want
-//Display with 7 cards, each one labeled with the days of the week
-//Under the display is a few assignments that are due (if there are more than 3 on that day, include 3 and at the bottom add +#)
-//The user can just view it, they can't change it directly unless they are in daily to do
-//EXPERIMENT: does checking off an item in daily to do remove it from weekly view?
