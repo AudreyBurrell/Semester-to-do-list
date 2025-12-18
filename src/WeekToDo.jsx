@@ -6,6 +6,7 @@ function WeekToDo() {
     //fetching from state
     const location = useLocation();
     const { assignments, classes } =  location.state || { assignments: {}, classes: [] };
+    console.log('Entering week to do');
     console.log('Received assignments:', assignments);
     console.log('Received classes:', classes);
     //getting the current date to determine the Sunday date and then get the rest of the dates
@@ -34,7 +35,21 @@ function WeekToDo() {
     };
     const weekDays = getWeekDays(currentDate);
     console.log(weekDays);
+    //getting the assignments for each day
+    const getAssignmentsForDate = (date) => {
+        if (assignments[date]) {
+            return assignments[date].map((assignment, index) => [`${date}-${index}`, assignment]);
+        }
+    };
+    const sundayAssignments = getAssignmentsForDate(weekDays[0]);
+    const mondayAssignments = getAssignmentsForDate(weekDays[1]);
+    const tuesdayAssignments = getAssignmentsForDate(weekDays[2]);
+    const wednesdayAssignments = getAssignmentsForDate(weekDays[3]);
+    const thursdayAssignments = getAssignmentsForDate(weekDays[4]);
+    const fridayAssignmetns = getAssignmentsForDate(weekDays[5]);
+    const saturdayAssignments = getAssignmentsForDate(weekDays[6]);
 
+    console.log(sundayAssignments);
 
     
     //adding code for going to day view or month view
@@ -73,8 +88,21 @@ function WeekToDo() {
             <div className="dayCardContainer">
                 <div className="sundayCard">
                     <h4>Sunday</h4> 
-                    {/*Display the mm/dd/year date for sunday here*/}
-                    {/*the items that are for Sunday*/}
+                    <div className="dateDisplay">{weekDays[0]}</div>
+                    {sundayAssignments.length === 0 ? (
+                        <div className="empty-day">No Assignments</div>
+                    ) : (
+                        <>
+                            {sundayAssignments.slice(0, 3).map(([key, assignment]) => (
+                                <div key={key} style={{ color: assignment.color }} className="assignment-item">
+                                    {assignment.name}
+                                </div>
+                            ))}
+                            {sundayAssignments.length > 3 && (
+                                <div className="more-items">+{sundayAssignments.length - 3} more</div>
+                            )}
+                        </>
+                    )} 
                 </div>
                 <div className="mondayCard">
                     <h4>Monday</h4>
