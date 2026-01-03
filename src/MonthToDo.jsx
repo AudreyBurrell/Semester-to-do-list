@@ -26,6 +26,28 @@ function MonthToDo() {
         return year;
     }
     yearNumber = getYear(currentDate);
+    //getting the calander days
+    const getCalanderDays = (date) => {
+        const year = date.getFullYear();
+        const month = date.getMonth();
+        const firstDay = new Date(year, month, 1);
+        const startingDayOfWeek = firstDay.getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const days = [];
+        for (let i = 0; i < startingDayOfWeek; i++) {
+            days.push({ isEmpty: true });
+        }
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dateString = `${year}-${String(month+1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            days.push({
+                day: day,
+                date: dateString,
+                isEmpty: false
+            });
+        }
+        return days;
+    }
+    const calanderDays = getCalanderDays(currentDate);
 
 
     //day view and week view functionality
@@ -79,7 +101,26 @@ function MonthToDo() {
                 <div className="header">
                     <h3>{monthName}, {yearNumber}</h3>
                 </div>
-                
+                <div className="weedayLabels">
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+                </div>
+                <div className="calanderGrid">
+                    {calanderDays.map((dayObj, index) => (
+                        <div key={index} className={dayObj.isEmpty ? "calanderDay empty" : "calanderDay"}>
+                            {!dayObj.isEmpty && (
+                                <>
+                                    <div className="dayNumber">{dayObj.day}</div>
+                                </>
+                            )}
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     )
