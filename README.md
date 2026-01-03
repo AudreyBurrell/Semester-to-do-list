@@ -24,7 +24,11 @@ I got this idea because I've been encountering a lot of different ways that peop
 Things I need to do:
 Include a way for the user to add items to their to do list from the daily, weekly, and monthly pages.
 When the user removes an item from the daily, it removes from the main list (so it will disappear in weekly and monthly)
-Backend user authentication and storage
+Backend user authentication and storage 
+
+
+BUGS THAT I NEED TO FIX:
+The daily view doesn't always show everything (the weekly view shows everything correctly, sometimes the day view doesn't calculate and display correctly it seems)
 
 ## Contact
 * **Portfolio:** AudreyBurrell.github.io

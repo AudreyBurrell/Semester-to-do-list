@@ -48,13 +48,26 @@ function MonthToDo() {
             }
         });
     }
+    //the next and previous button functionality
+    const handlePrevBtn = () => {
+        console.log('Previous button pressed');
+        const newDate = new Date(currentDate);
+        newDate.setMonth(currentDate.getMonth() - 1);
+        setCurrentDate(newDate)
+    }
+    const handleNextBtn = () => {
+        console.log('Next button pressed');
+        const newDate = new Date(currentDate);
+        newDate.setMonth(currentDate.getMonth() + 1);
+        setCurrentDate(newDate);
+    }
     
     return (
         <div>
             <div className="navigationBtnContainer">
                 <div className="prevNextBtn">
-                    <button>&larr; Prev</button>
-                    <button>Next &rarr;</button>
+                    <button onClick={handlePrevBtn}>&larr; Prev</button>
+                    <button onClick={handleNextBtn}>Next &rarr;</button>
                 </div>
                 <div className="differentViewBtn">
                     <button onClick={handleDayBtn}>Day View</button>
@@ -66,6 +79,7 @@ function MonthToDo() {
                 <div className="header">
                     <h3>{monthName}, {yearNumber}</h3>
                 </div>
+                
             </div>
         </div>
     )
