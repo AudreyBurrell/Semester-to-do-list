@@ -101,7 +101,7 @@ function MonthToDo() {
                 <div className="header">
                     <h3>{monthName}, {yearNumber}</h3>
                 </div>
-                <div className="weedayLabels">
+                <div className="weekdayLabels">
                     <div>Sun</div>
                     <div>Mon</div>
                     <div>Tue</div>
@@ -110,9 +110,9 @@ function MonthToDo() {
                     <div>Fri</div>
                     <div>Sat</div>
                 </div>
-                <div className="calanderGrid">
+                <div className="calendarGrid">
                     {calanderDays.map((dayObj, index) => (
-                        <div key={index} className={dayObj.isEmpty ? "calanderDay empty" : "calanderDay"}>
+                        <div key={index} className={dayObj.isEmpty ? "calendarDay empty" : "calendarDay"}>
                             {!dayObj.isEmpty && (
                                 <>
                                     <div className="dayNumber">{dayObj.day}</div>
