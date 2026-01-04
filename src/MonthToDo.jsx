@@ -54,6 +54,16 @@ function MonthToDo() {
         }
         return 0;
     };
+    //functionality for when the user hovers over stuff
+    const [currentHoverDate, setHoverDate] = useState(null);
+    const handleMouseEnter = (dateString) => {
+        console.log('Hovering over date')
+        setHoverDate(dateString)
+    }
+    const handleMouseLeave = (dateString) => {
+        console.log('Leaving date');
+        setHoverDate(null);
+    }
 
 
     //day view and week view functionality
@@ -118,7 +128,7 @@ function MonthToDo() {
                 </div>
                 <div className="calendarGrid">
                     {calanderDays.map((dayObj, index) => (
-                        <div key={index} className={dayObj.isEmpty ? "calendarDay empty" : "calendarDay"}>
+                        <div key={index} className={dayObj.isEmpty ? "calendarDay empty" : "calendarDay"} onMouseEnter={() => !dayObj.isEmpty && handleMouseEnter(dayObj.date)} onMouseLeave={handleMouseLeave}>
                             {!dayObj.isEmpty && (
                                 <>
                                     <div className="dayNumber">{dayObj.day}</div>
@@ -141,5 +151,4 @@ function MonthToDo() {
 
 export default MonthToDo; 
 
-//inside each square is the number of assignments to do
 //when the user hovers over a square, a popup appears that gives them more detailed information about that day
