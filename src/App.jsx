@@ -12,6 +12,24 @@ import WeekToDo from './WeekToDo'
 import MonthToDo from './MonthToDo'
 
 function App() {
+  const [completedAssignments, setCompletedAssignments] = useState({});
+  const handleToggleComplete = (dateKey, index) => {
+    setCompletedAssignments(prev => {
+      const currentCompleted = prev[dateKey] || [];
+      const isCompleted = currentCompleted.includes(index);
+      if (isCompleted) {
+        return {
+          ...prev,
+          [dateKey]: currentCompleted.filter(i => i !== index)
+        };
+      } else {
+        return {
+          ...prev,
+          [dateKey]: [...currentCompleted, index]
+        };
+      }
+    });
+  }
   return (
     <BrowserRouter>
         <Routes>
