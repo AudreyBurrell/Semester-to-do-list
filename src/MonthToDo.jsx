@@ -26,7 +26,7 @@ function MonthToDo() {
         return year;
     }
     yearNumber = getYear(currentDate);
-    //getting the calander days
+    //getting the calander days and filling it with the number of assignments for each day
     const getCalanderDays = (date) => {
         const year = date.getFullYear();
         const month = date.getMonth();
@@ -48,6 +48,12 @@ function MonthToDo() {
         return days;
     }
     const calanderDays = getCalanderDays(currentDate);
+    const getAssignmentCount = (dateString) => {
+        if (assignments[dateString] &&  Array.isArray(assignments[dateString])) {
+            return assignments[dateString].length;
+        }
+        return 0;
+    };
 
 
     //day view and week view functionality
@@ -116,6 +122,13 @@ function MonthToDo() {
                             {!dayObj.isEmpty && (
                                 <>
                                     <div className="dayNumber">{dayObj.day}</div>
+                                    {getAssignmentCount(dayObj.date) > 0 ? (
+                                        <div className="assignmentCount">
+                                            {getAssignmentCount(dayObj.date)} assignment{getAssignmentCount(dayObj.date) > 1 ? 's' : ''}
+                                        </div>
+                                    ) : (
+                                        <div className="noAssignments">No Assignments</div>
+                                    )}
                                 </>
                             )}
                         </div>
@@ -128,6 +141,5 @@ function MonthToDo() {
 
 export default MonthToDo; 
 
-//for the month view, the name of the month and the year will display at the top
-//each square will have the number of the day on the top left corner
-//inside each square is the number of assignments the user has for that day, or "no assignments"
+//inside each square is the number of assignments to do
+//when the user hovers over a square, a popup appears that gives them more detailed information about that day
