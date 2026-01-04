@@ -171,4 +171,3 @@ function MonthToDo() {
 
 export default MonthToDo; 
 
-//when the user hovers over a square, a popup appears that gives them more detailed information about that day

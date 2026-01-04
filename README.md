@@ -17,7 +17,7 @@ I got this idea because I've been encountering a lot of different ways that peop
 **How I used AI**
 * To guide me through setting up the development environment
 * Assisting me with React syntax
-* Assisting me with CSS styling 
+* Assisting me with CSS styling (especially with getting popups to work)
 * Helped me with storing the dates and some manipulation with that
 * CSV reading and manipulation
 
@@ -25,10 +25,6 @@ Things I need to do:
 Include a way for the user to add items to their to do list from the daily, weekly, and monthly pages.
 When the user removes an item from the daily, it removes from the main list (so it will disappear in weekly and monthly)
 Backend user authentication and storage 
-
-
-BUGS THAT I NEED TO FIX:
-The daily view doesn't always show everything (the weekly view shows everything correctly, sometimes the day view doesn't calculate and display correctly it seems)
 
 ## Contact
 * **Portfolio:** AudreyBurrell.github.io

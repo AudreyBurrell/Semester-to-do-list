@@ -10,8 +10,12 @@ function DailyToDo() {
     const [currentDate, setCurrentDate] = useState(new Date());
     //getting the assignments based off the date
     const getAssignmentsForDate = (currentDate) => {
-        const dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`;
-        console.log(assignments[dateKey] || []);
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const dateKey = `${year}-${month}-${day}`;
+        console.log('Looking for date key:', dateKey);
+        console.log('Found assignments:', assignments[dateKey] || []);
         return assignments[dateKey] || [];
     };
     const todaysAssignments = getAssignmentsForDate(currentDate);
@@ -40,7 +44,11 @@ function DailyToDo() {
     });
     //getting the items to complete
     const handleToggleComplete = (index) => {
-        const dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`;
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const dateKey = `${year}-${month}-${day}`;
+        // const dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`;
         setCompletedAssignments(prev => {
             const currentCompleted = prev[dateKey] || [];
             const isCompleted = currentCompleted.includes(index);   
@@ -100,7 +108,11 @@ function DailyToDo() {
                 ) : (
                     <div className="assignmentsList">
                         {todaysAssignments.map((assignment, index) => {
-                            const dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`;
+                            const year = currentDate.getFullYear();
+                            const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                            const day = String(currentDate.getDate()).padStart(2, '0');
+                            const dateKey = `${year}-${month}-${day}`;
+                            // const dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`;
                             const isCompleted = completedAssignments[dateKey]?.includes(index) || false;
                             return (
                                 <div key={index} className="assignmentItem" style={{ borderLeftColor: assignment.color }}>
