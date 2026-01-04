@@ -90,11 +90,10 @@ body {
 .calanderArea {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0;
+    padding: 0 20px 40px 20px;
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
 }
 
 /* Header */
@@ -102,8 +101,6 @@ body {
     padding: 30px 20px;
     text-align: center;
     border-bottom: 3px solid #28a745;
-    border-left: none;
-    border-right: none;
 }
 
 .calanderArea .header h3 {
@@ -181,8 +178,70 @@ body {
     text-align: center;
 }
 
+/* Hover popup */
+.hoverPopup {
+    position: fixed;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 350px;
+    max-height: 80vh;
+    overflow-y: auto;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    padding: 0;
+}
+
+.popupHeader {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #e0e0e0;
+    border-radius: 12px 12px 0 0;
+    font-size: 16px;
+    color: #2c3e50;
+}
+
+.popupContent {
+    padding: 20px;
+}
+
+.assignmentsList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.popupAssignment {
+    padding: 12px 15px;
+    background-color: #f8f9fa;
+    border-left: 5px solid #28a745;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #2c3e50;
+    transition: all 0.2s ease;
+}
+
+.popupAssignment:hover {
+    background-color: #e9ecef;
+    transform: translateX(3px);
+}
+
+.noAssignmentsPopup {
+    text-align: center;
+    color: #9ca3af;
+    font-style: italic;
+    padding: 20px;
+}
+
 /* Responsive design */
 @media (max-width: 1024px) {
+    .hoverPopup {
+        right: 20px;
+        width: 300px;
+    }
+    
     .calendarGrid {
         gap: 8px;
     }
@@ -198,6 +257,17 @@ body {
 }
 
 @media (max-width: 768px) {
+    .hoverPopup {
+        position: fixed;
+        right: 10px;
+        left: 10px;
+        width: auto;
+        top: auto;
+        bottom: 20px;
+        transform: none;
+        max-height: 50vh;
+    }
+    
     .navigationBtnContainer {
         flex-direction: column;
         gap: 20px;

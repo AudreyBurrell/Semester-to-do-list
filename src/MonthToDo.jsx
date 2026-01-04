@@ -154,7 +154,7 @@ function MonthToDo() {
                                 <div className="assignmentsList">
                                     {assignments[currentHoverDate].map((assignment, index) => (
                                         <div key={index} className="popupAssignment" style={{ borderLeftColor : assignment.color }}>
-                                            • {assignment.name}
+                                            {assignment.name}
                                         </div>
                                     ))}
                                 </div>
