@@ -144,6 +144,26 @@ function MonthToDo() {
                         </div>
                     ))}
                 </div>
+                {currentHoverDate && (
+                    <div className="hoverPopup">
+                        <div className="popupHeader">
+                            <strong>{currentHoverDate}</strong>
+                        </div>
+                        <div className="popupContent">
+                            {assignments[currentHoverDate] && assignments[currentHoverDate].length > 0 ? (
+                                <div className="assignmentsList">
+                                    {assignments[currentHoverDate].map((assignment, index) => (
+                                        <div key={index} className="popupAssignment" style={{ borderLeftColor : assignment.color }}>
+                                            • {assignment.name}
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="noAssignmentsPopup">No assignments for this day</div>
+                            )}
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     )
