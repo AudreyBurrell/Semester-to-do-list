@@ -111,7 +111,7 @@ function WeekToDo() {
                                     <div 
                                         key={key} 
                                         style={{ 
-                                            color: assignment.color,
+                                            borderLeftColor: assignment.color,
                                             textDecoration: isCompleted ? 'line-through' : 'none',
                                             opacity: isCompleted ? 0.6 : 1
                                         }} 
@@ -137,7 +137,7 @@ function WeekToDo() {
                                     <div 
                                         key={key}
                                         style={{
-                                            color: assignment.color,
+                                            borderLeftColor: assignment.color,
                                             textDecoration: isCompleted ? 'line-through' : 'none',
                                             opacity: isCompleted ? 0.6 : 1
                                         }}
@@ -163,7 +163,7 @@ function WeekToDo() {
                                     <div   
                                         key={key}
                                         style={{
-                                            color: assignment.color,
+                                            borderLeftColor: assignment.color,
                                             textDecoration: isCompleted ? 'line-through' : 'none',
                                             opacity: isCompleted ? 0.6 : 1
                                         }}
@@ -189,7 +189,7 @@ function WeekToDo() {
                                     <div   
                                         key={key}
                                         style={{
-                                            color: assignment.color,
+                                            borderLeftColor: assignment.color,
                                             textDecoration: isCompleted ? 'line-through' : 'none',
                                             opacity: isCompleted ? 0.6 : 1
                                         }}
@@ -215,7 +215,7 @@ function WeekToDo() {
                                     <div   
                                         key={key}
                                         style={{
-                                            color: assignment.color,
+                                            borderLeftColor: assignment.color,
                                             textDecoration: isCompleted ? 'line-through' : 'none',
                                             opacity: isCompleted ? 0.6 : 1
                                         }}
@@ -241,7 +241,7 @@ function WeekToDo() {
                                     <div   
                                         key={key}
                                         style={{
-                                            color: assignment.color,
+                                            borderLeftColor: assignment.color,
                                             textDecoration: isCompleted ? 'line-through' : 'none',
                                             opacity: isCompleted ? 0.6 : 1
                                         }}
@@ -267,7 +267,7 @@ function WeekToDo() {
                                     <div   
                                         key={key}
                                         style={{
-                                            color: assignment.color,
+                                            borderLeftColor: assignment.color,
                                             textDecoration: isCompleted ? 'line-through' : 'none',
                                             opacity: isCompleted ? 0.6 : 1
                                         }}
