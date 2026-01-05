@@ -96,6 +96,7 @@ function DailyToDo() {
                 <div className="prevNextBtn">
                     <button onClick={handlePrevDay}>&larr; Prev</button> 
                     <button onClick={handleNextDay}>Next &rarr;</button>
+                    <button className="addAssignments">+ Assignments</button>
                 </div>
                 <div className="differentViewBtn">
                     <button disabled>Day View</button>
@@ -131,6 +132,7 @@ function DailyToDo() {
                 )}
             </div>
         </div>
+
     );
 }
 

@@ -90,6 +90,7 @@ function WeekToDo() {
                 <div className="prevNextBtn">
                     <button onClick={handlePrevWeek}>&larr; Prev</button> 
                     <button onClick={handleNextWeek}>Next &rarr;</button>
+                    <button className="addAssignments">+ Assignments</button>
                 </div>
                 <div className="differentViewBtn">
                     <button onClick={handleDayView}>Day View</button>
