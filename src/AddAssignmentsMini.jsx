@@ -3,6 +3,15 @@ import { useState, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom'; 
 
 function AddAssignmentsMini() {
+    //fetching from state
+    const location = useLocation();
+    const { assignments, classes, completedAssignments, returnTo } =  location.state || { assignments: {}, classes: [], completedAssignments: {}, returnTo: '' };
+    console.log('Entering add assignments mini');
+    console.log('Received assignments:', assignments);
+    console.log('Received classes:', classes); 
+    console.log('Return to:', returnTo);
+
+
 
     return (
         <div>
@@ -10,7 +19,7 @@ function AddAssignmentsMini() {
                 <button className="backBtn">&larr; Back</button> 
                 <h3>Enter in Items</h3>
             </div>
-            <div className = "manualEnterArea">
+            {/* <div className = "manualEnterArea">
                 <div className="dateArea">
                     <form>
                         <label htmlFor="dueDate">Due Date:</label>
@@ -89,7 +98,7 @@ function AddAssignmentsMini() {
             </div>
             <div className="navigationArea">
                 <button className="goToTodoListBtn" onClick={handleGoToList}> Go to To-Do List &rarr; </button>
-            </div>
+            </div> */}
 
         </div> //don't delete this, everything goes above this
     )
@@ -99,3 +108,4 @@ function AddAssignmentsMini() {
 export default AddAssignmentsMini; 
 
 //when the back button is pressed, if there has been any assignments added, a popup should appear that says exit with or without adding those items to the list
+//If I were to do a CSV, the user would need to know to just update their original CSV and put it in (or maybe I could just add what it gets from?)
