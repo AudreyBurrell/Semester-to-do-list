@@ -54,6 +54,12 @@ function MonthToDo() {
         }
         return 0;
     };
+    //checking if all assignments are completed
+    const areAllCompleted = (dateString, assignmentCount) => {
+        if (assignmentCount === 0) return false;
+        const completedForDate = completedAssignments[dateString] || [];
+        return completedForDate.length === assignmentCount;
+    };
     //functionality for when the user hovers over stuff
     const [currentHoverDate, setHoverDate] = useState(null);
     const handleMouseEnter = (dateString) => {
@@ -128,7 +134,7 @@ function MonthToDo() {
                     <div>Fri</div>
                     <div>Sat</div>
                 </div>
-                <div className="calendarGrid">
+                {/* <div className="calendarGrid">
                     {calanderDays.map((dayObj, index) => (
                         <div key={index} className={dayObj.isEmpty ? "calendarDay empty" : "calendarDay"} onMouseEnter={() => !dayObj.isEmpty && handleMouseEnter(dayObj.date)} onMouseLeave={handleMouseLeave}>
                             {!dayObj.isEmpty && (
@@ -145,8 +151,36 @@ function MonthToDo() {
                             )}
                         </div>
                     ))}
+                </div> */}
+                <div className="calendarGrid">
+                    {calanderDays.map((dayObj, index) => (
+                        <div 
+                            key={index} 
+                            className={dayObj.isEmpty ? "calendarDay empty" : "calendarDay"}
+                            onMouseEnter={() => !dayObj.isEmpty && handleMouseEnter(dayObj.date)}
+                            onMouseLeave={handleMouseLeave}
+                        >
+                            {!dayObj.isEmpty && (
+                                <>
+                                    <div className="dayNumber">{dayObj.day}</div>
+                                    {getAssignmentCount(dayObj.date) > 0 ? (
+                                        <>
+                                            <div className="assignmentCount">
+                                                {getAssignmentCount(dayObj.date)} assignment{getAssignmentCount(dayObj.date) > 1 ? 's' : ''}
+                                            </div>
+                                            {areAllCompleted(dayObj.date, getAssignmentCount(dayObj.date)) && (
+                                                <div className="allCompleted">All Assignments Completed</div>
+                                            )}
+                                        </>
+                                    ) : (
+                                        <div className="noAssignments">No Assignments</div>
+                                    )}
+                                </>
+                            )}
+                        </div>
+                    ))}
                 </div>
-                {currentHoverDate && (
+                {/* {currentHoverDate && (
                     <div className="hoverPopup">
                         <div className="popupHeader">
                             <strong>{currentHoverDate}</strong>
@@ -159,6 +193,37 @@ function MonthToDo() {
                                             {assignment.name}
                                         </div>
                                     ))}
+                                </div>
+                            ) : (
+                                <div className="noAssignmentsPopup">No assignments for this day</div>
+                            )}
+                        </div>
+                    </div>
+                )} */}
+                {currentHoverDate && (
+                    <div className="hoverPopup">
+                        <div className="popupHeader">
+                            <strong>{currentHoverDate}</strong>
+                        </div>
+                        <div className="popupContent">
+                            {assignments[currentHoverDate] && assignments[currentHoverDate].length > 0 ? (
+                                <div className="assignmentsList">
+                                    {assignments[currentHoverDate].map((assignment, index) => {
+                                        const isCompleted = completedAssignments[currentHoverDate]?.includes(index) || false;
+                                        return (
+                                            <div 
+                                                key={index} 
+                                                className="popupAssignment" 
+                                                style={{ 
+                                                    borderLeftColor: assignment.color,
+                                                    textDecoration: isCompleted ? 'line-through' : 'none',
+                                                    opacity: isCompleted ? 0.6 : 1
+                                                }}
+                                            >
+                                                {assignment.name}
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                             ) : (
                                 <div className="noAssignmentsPopup">No assignments for this day</div>
