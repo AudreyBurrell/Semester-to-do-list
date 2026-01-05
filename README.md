@@ -24,9 +24,7 @@ I got this idea because I've been encountering a lot of different ways that peop
 Things I need to do:
 Include a way for the user to add items to their to do list from the daily, weekly, and monthly pages.
 Backend user authentication and storage 
-
-Things I could do if I have time:
-Add a progress page where the user can see their progress on all their assignments per class (with colors and nice bars too)
+Move the items around on add assignments mini and semester so that all the navigation stuff is on the top (like the other pages)
 
 BUGS:
 This isn't so much of a bug as much of a design problem. I want the cards on everything to stay the same bigger size throughout (the same size as it is when stuff is in it, it's smaller currently if the card is empty)

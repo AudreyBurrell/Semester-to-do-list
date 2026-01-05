@@ -11,12 +11,48 @@ function AddAssignmentsMini() {
     console.log('Received classes:', classes); 
     console.log('Return to:', returnTo);
 
+    //back button
+    const navigate = useNavigate();
+    const handleBackBtn = () => {
+        console.log('Back button pressed');
+        //daily
+        if (returnTo === "daily") {
+            navigate('/DailyToDo', {
+                state: {
+                    assignments: assignments,
+                    classes: classes,
+                    completedAssignments: completedAssignments
+                }
+            });
+        }
+        //weekly
+        if (returnTo === "weekly") {
+            navigate('/WeekToDo', {
+                state: {
+                    assignments: assignments,
+                    classes: classes,
+                    completedAssignments: completedAssignments
+                }
+            });
+        }
+        //monthly
+        if (returnTo === "monthly") {
+            navigate('/MonthToDo', {
+                state: {
+                    assignments: assignments,
+                    classes: classes,
+                    completedAssignments: completedAssignments
+                }
+            });
+        }
+    }
+
 
 
     return (
         <div>
             <div className = "header"> 
-                <button className="backBtn">&larr; Back</button> 
+                <button className="backBtn" onClick={handleBackBtn}>&larr; Back</button> 
                 <h3>Enter in Items</h3>
             </div>
             {/* <div className = "manualEnterArea">
