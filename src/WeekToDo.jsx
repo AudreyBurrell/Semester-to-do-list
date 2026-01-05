@@ -105,14 +105,22 @@ function WeekToDo() {
                         <div className="empty-day">No Assignments</div>
                     ) : (
                         <>
-                            {sundayAssignments.slice(0, 4).map(([key, assignment]) => (
-                                <div key={key} style={{ color: assignment.color }} className="assignment-item">
-                                    {assignment.name}
-                                </div>
-                            ))}
-                            {sundayAssignments.length > 4 && (
-                                <div className="more-items">+{sundayAssignments.length - 4} more</div>
-                            )}
+                            {sundayAssignments.slice(0, 4).map(([key, assignment], index) => {
+                                const isCompleted = completedAssignments[weekDays[0]]?.includes(index) || false;
+                                return (
+                                    <div 
+                                        key={key} 
+                                        style={{ 
+                                            color: assignment.color,
+                                            textDecoration: isCompleted ? 'line-through' : 'none',
+                                            opacity: isCompleted ? 0.6 : 1
+                                        }} 
+                                        className="assignment-item"
+                                    >
+                                        {assignment.name}
+                                    </div>
+                                );
+                            })}
                         </>
                     )} 
                 </div>
