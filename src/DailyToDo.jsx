@@ -4,7 +4,7 @@ import { useState, useRef } from 'react';
 
 function DailyToDo() {
     const location = useLocation();
-    const { assignments, classes } =  location.state || { assignments: {}, classes: [] };
+    const { assignments, classes, completedAssignments: passedCompletedAssignments } =  location.state || { assignments: {}, classes: [], completedAssignments: {} };
     console.log('Received assignments:', assignments);
     console.log('Received classes:', classes);
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -20,7 +20,7 @@ function DailyToDo() {
     };
     const todaysAssignments = getAssignmentsForDate(currentDate);
     //the actual items inside the list
-    const [completedAssignments, setCompletedAssignments] = useState({});
+    const [completedAssignments, setCompletedAssignments] = useState(passedCompleteAssignments || {});
      //previous and next buttons
     const handlePrevDay = () => {
         setCurrentDate(prev => {
@@ -73,7 +73,8 @@ function DailyToDo() {
         navigate('/WeekToDo', {
             state: {
                 assignments: assignments,
-                classes: classes
+                classes: classes,
+                completedAssignments: completedAssignments
             }
         });
     }
@@ -82,7 +83,8 @@ function DailyToDo() {
         navigate('/MonthToDo', {
             state: {
                 assignments: assignments,
-                classes: classes
+                classes: classes,
+                completedAssignments: completedAssignments
             }
         });
     }
