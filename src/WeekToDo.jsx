@@ -83,6 +83,18 @@ function WeekToDo() {
         newDate.setDate(currentDate.getDate() + 7);
         setCurrentDate(newDate);
     }
+    //add assignment button
+    const handleAddAssignment = () => {
+        console.log('Add Assignment pressed');
+        navigate('/AddAssignmentsMini', {
+            state: {
+                assignments: assignments,
+                classes: classes,
+                completedAssignments: completedAssignments,
+                returnTo: 'weekly'
+            }
+        });
+    }
 
     return (
         <div>
@@ -90,7 +102,7 @@ function WeekToDo() {
                 <div className="prevNextBtn">
                     <button onClick={handlePrevWeek}>&larr; Prev</button> 
                     <button onClick={handleNextWeek}>Next &rarr;</button>
-                    <button className="addAssignments">+ Assignments</button>
+                    <button className="addAssignments" onClick={handleAddAssignment}>+ Assignments</button>
                 </div>
                 <div className="differentViewBtn">
                     <button onClick={handleDayView}>Day View</button>

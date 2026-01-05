@@ -88,6 +88,18 @@ function DailyToDo() {
             }
         });
     }
+    //add assignments button
+    const handleAddAssignments = () => {
+        console.log('Add assignments clicked');
+        navigate('/AddAssignmentsMini', {
+            state: {
+                assignments: assignments,
+                classes: classes,
+                completedAssignments: completedAssignments,
+                returnTo: 'daily' //if it's daily, return to this page. If it's weekly or monthly, return to those pages
+            }
+        });
+    }
     
 
     return (
@@ -96,7 +108,7 @@ function DailyToDo() {
                 <div className="prevNextBtn">
                     <button onClick={handlePrevDay}>&larr; Prev</button> 
                     <button onClick={handleNextDay}>Next &rarr;</button>
-                    <button className="addAssignments">+ Assignments</button>
+                    <button className="addAssignments" onClick={handleAddAssignments}>+ Assignments</button>
                 </div>
                 <div className="differentViewBtn">
                     <button disabled>Day View</button>

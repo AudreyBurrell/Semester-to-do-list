@@ -107,6 +107,18 @@ function MonthToDo() {
         newDate.setMonth(currentDate.getMonth() + 1);
         setCurrentDate(newDate);
     }
+    //add assignments button
+    const handleAddAssignments = () => {
+        console.log('Add Assignments pressed');
+        navigate('/AddAssignmentsMini', {
+            state: {
+                assignments: assignments,
+                classes: classes,
+                completedAssignments: completedAssignments,
+                returnTo: 'monthly'
+            }
+        });
+    }
     
     return (
         <div>
@@ -114,7 +126,7 @@ function MonthToDo() {
                 <div className="prevNextBtn">
                     <button onClick={handlePrevBtn}>&larr; Prev</button>
                     <button onClick={handleNextBtn}>Next &rarr;</button>
-                    <button className="addAssignments">+ Assignments</button>
+                    <button className="addAssignments" onClick={handleAddAssignments}>+ Assignments</button>
                 </div>
                 <div className="differentViewBtn">
                     <button onClick={handleDayBtn}>Day View</button>
