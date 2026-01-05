@@ -5,7 +5,7 @@ import { useState } from 'react';
 function WeekToDo() {
     //fetching from state
     const location = useLocation();
-    const { assignments, classes } =  location.state || { assignments: {}, classes: [] };
+    const { assignments, classes, completedAssignments } =  location.state || { assignments: {}, classes: [], completedAssignments: {} };
     console.log('Entering week to do');
     console.log('Received assignments:', assignments);
     console.log('Received classes:', classes);
@@ -57,7 +57,8 @@ function WeekToDo() {
         navigate('/DailyToDo', {
             state: {
                 assignments: assignments,
-                classes: classes
+                classes: classes,
+                completedAssignments: completedAssignments
             }
         });
     }
@@ -66,7 +67,8 @@ function WeekToDo() {
         navigate('/MonthToDo', {
             state: {
                 assignments: assignments,
-                classes: classes
+                classes: classes,
+                completedAssignments: completedAssignments
             }
         });
     }

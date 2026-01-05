@@ -4,7 +4,7 @@ import { useState, useRef } from 'react';
 
 function DailyToDo() {
     const location = useLocation();
-    const { assignments, classes, completedAssignments: passedCompletedAssignments } =  location.state || { assignments: {}, classes: [], completedAssignments: {} };
+    const { assignments, classes, completedAssignments: passedCompleteAssignments } =  location.state || { assignments: {}, classes: [], completedAssignments: {} };
     console.log('Received assignments:', assignments);
     console.log('Received classes:', classes);
     const [currentDate, setCurrentDate] = useState(new Date());
