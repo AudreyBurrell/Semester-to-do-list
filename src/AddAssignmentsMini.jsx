@@ -1,4 +1,4 @@
-import './AddAssignmentsMini.css';
+import './AddAssignmentsSemester.css'; //remember to change it to mini later
 import { useState, useRef } from 'react';  
 import { useNavigate, useLocation } from 'react-router-dom'; 
 
@@ -46,6 +46,38 @@ function AddAssignmentsMini() {
             });
         }
     }
+    //class selection and display stuff
+    const [selectedClass, setSelectedClass] = useState(null);
+    const [showAddClassForm, setShowAddClassForm] = useState(false); 
+    const [newClassName, setNewClassName] = useState(''); 
+    const [selectedColor, setSelectedColor] = useState('#4caf50');
+    const colorOptions = [
+        { name: 'Red', value: '#f44336' },
+        { name: 'Pink', value: '#e91e63' },
+        { name: 'Yellow', value: '#ff9800'},
+        { name: 'Orange', value: '#ff7043' },
+        { name: 'Green', value: '#4caf50' },
+        { name: 'Teal', value: '#009688' },
+        { name: 'Cyan', value: '#00bcd4'},
+        { name: 'Blue', value: '#2196f3' },
+        { name: 'Indigo', value: '#3f51b5'},
+        { name: 'Purple', value: '#9c27b0'},
+        { name: 'Brown', value: '#795548'},
+        { name: 'Gray', value: '#757575'},
+        { name: 'Black', value: '#000'}
+    ];
+    const handleClassSelect = (classId) => {
+        setSelectedClass(classId);
+    };
+    const handleAddClassClick = () => {
+        setShowAddClassForm(!showAddClassForm);
+    };
+
+
+    //item preview stuff
+    const [dueDate, setDueDate] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [assignmentName, setAssignmentName] = useState('');
 
 
 
@@ -55,7 +87,7 @@ function AddAssignmentsMini() {
                 <button className="backBtn" onClick={handleBackBtn}>&larr; Back</button> 
                 <h3>Enter in Items</h3>
             </div>
-            {/* <div className = "manualEnterArea">
+            <div className="manualEntryArea">
                 <div className="dateArea">
                     <form>
                         <label htmlFor="dueDate">Due Date:</label>
@@ -66,29 +98,33 @@ function AddAssignmentsMini() {
                         <input type="date" id="startDate" name="startDate" value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
                     </form>
                 </div>
-                <div className="selectClassArea">
-                    <div className="assignmentNameArea">
-                        <label htmlFor="assignmentName">Assignment Name:</label>
-                        <input type="text" id="assignmentName" name="assignmentName" required value={assignmentName} onChange={(e) => setAssignmentName(e.target.value)}/>
-                    </div>
-                    <p id="selectAClassInstruction">Select a class:</p>
-                    <div className="classButtonsContainer">
-                        {classes.map((classItem) => (
-                            <button 
-                                key={classItem.id}
-                                className={`classButton ${selectedClass === classItem.id ? 'selectedClass' : ''}`}
-                                style={{ 
-                                    borderColor: classItem.color, 
-                                    color: selectedClass === classItem.id ? 'white' : classItem.color,
-                                    backgroundColor: selectedClass === classItem.id ? classItem.color : 'white'
-                                }}
-                                onClick={() => handleClassSelect(classItem.id)}
-                            >
-                                {classItem.name}
-                            </button>
-                        ))}
-                    </div>
-                    <button className="addClass" onClick={handleAddClassClick}>+ Add Class</button>
+            </div>
+            <div className="selectClassArea">
+                <div className="assignmentNameArea">
+                    <label htmlFor="assignmentName">Assignment Name:</label>
+                    <input type="text" id="assignmentName" name="assignmentName" required value={assignmentName} onChange={(e) => setAssignmentName(e.target.value)}/>
+                </div>
+                <p id="selectAClassInstruction">Select a class:</p>
+                <div className="classButtonsContainer">
+                    {classes.map((classItem) => (
+                        <button
+                            key={classItem.id}
+                            className={`classButton ${selectedClass === classItem.id ? 'selectedClass' : ''}`}
+                            style={{
+                                borderColor: classItem.color,
+                                color: selectedClass === classItem.id ? 'white' : classItem.color,
+                                backgroundColor: selectedClass === classItem.id ? classItem.color : 'white'
+                            }}
+                            onClick={() => handleClassSelect(classItem.id)}
+                        >
+                            {classItem.name}
+                        </button>
+                    ))}
+                </div>
+                <button className="addClass" onClick={handleAddClassClick}>+ Add Class</button>
+            </div>
+            {/* 
+                
                     {showAddClassForm && (
                         <div className="addClassForm"> 
                             <input type="text" placeholder = "Class name" value = {newClassName} onChange={(e) => setNewClassName(e.target.value)} />
