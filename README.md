@@ -26,6 +26,9 @@ Include a way for the user to add items to their to do list from the daily, week
 When the user removes an item from the daily, it removes from the main list (so it will disappear in weekly and monthly)
 Backend user authentication and storage 
 
+BUGS:
+This isn't so much of a bug as much of a design problem. I want the cards on everything to stay the same bigger size throughout (the same size as it is when stuff is in it, it's smaller currently if the card is empty)
+
 ## Contact
 * **Portfolio:** AudreyBurrell.github.io
 * [**Linkedln**](www.linkedin.com/in/audrey-burrell-786479341)

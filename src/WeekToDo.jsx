@@ -131,14 +131,22 @@ function WeekToDo() {
                         <div className="empty-day">No Assignments</div>
                     ) : (
                         <>
-                            {mondayAssignments.slice(0, 4).map(([key, assignment]) => (
-                                <div key={key} style={{ color: assignment.color }} className="assignment-item">
-                                    {assignment.name}
-                                </div>
-                            ))}
-                            {mondayAssignments.length > 4 && (
-                                <div className="more-items">+{mondayAssignments.length - 4} more</div>
-                            )}
+                            {mondayAssignments.slice(0,4).map(([key, assignment], index) => {
+                                const isCompleted = completedAssignments[weekDays[1]]?.includes(index) || false;
+                                return (
+                                    <div 
+                                        key={key}
+                                        style={{
+                                            color: assignment.color,
+                                            textDecoration: isCompleted ? 'line-through' : 'none',
+                                            opacity: isCompleted ? 0.6 : 1
+                                        }}
+                                        className="assignment-item"
+                                    >
+                                        {assignment.name}
+                                    </div>
+                                );
+                            })}
                         </>
                     )}
                 </div>
@@ -149,14 +157,22 @@ function WeekToDo() {
                         <div className="empty-day">No Assignments</div>
                     ) : (
                         <>
-                            {tuesdayAssignments.slice(0, 4).map(([key, assignment]) => (
-                                <div key={key} style={{ color: assignment.color }} className="assignment-item">
-                                    {assignment.name}
-                                </div>
-                            ))}
-                            {tuesdayAssignments.length > 4 && (
-                                <div className="more-items">+{tuesdayAssignments.length - 4} more</div>
-                            )}
+                            {tuesdayAssignments.slice(0, 4).map(([key, assignment], index) => {
+                                const isCompleted = completedAssignments[weekDays[2]]?.includes(index) || false;
+                                return (
+                                    <div   
+                                        key={key}
+                                        style={{
+                                            color: assignment.color,
+                                            textDecoration: isCompleted ? 'line-through' : 'none',
+                                            opacity: isCompleted ? 0.6 : 1
+                                        }}
+                                        className="assignment-item"
+                                    >
+                                        {assignment.name}
+                                    </div>
+                                );
+                            })}
                         </>
                     )}
                 </div>
@@ -167,14 +183,22 @@ function WeekToDo() {
                         <div className="empty-day">No Assignments</div>
                     ) : (
                         <>
-                            {wednesdayAssignments.slice(0, 4).map(([key, assignment]) => (
-                                <div key={key} style={{ color: assignment.color }} className="assignment-item">
-                                    {assignment.name}
-                                </div>
-                            ))}
-                            {wednesdayAssignments.length > 4 && (
-                                <div className="more-items">+{wednesdayAssignments.length - 4} more</div>
-                            )}
+                            {wednesdayAssignments.slice(0, 4).map(([key, assignment], index) => {
+                                const isCompleted = completedAssignments[weekDays[3]]?.includes(index) || false;
+                                return (
+                                    <div   
+                                        key={key}
+                                        style={{
+                                            color: assignment.color,
+                                            textDecoration: isCompleted ? 'line-through' : 'none',
+                                            opacity: isCompleted ? 0.6 : 1
+                                        }}
+                                        className="assignment-item"
+                                    >
+                                        {assignment.name}
+                                    </div>
+                                );
+                            })}
                         </>
                     )}
                 </div>
@@ -185,14 +209,22 @@ function WeekToDo() {
                         <div className="empty-day">No Assignments</div>
                     ) : (
                         <>
-                            {thursdayAssignments.slice(0, 4).map(([key, assignment]) => (
-                                <div key={key} style = {{ color: assignment.color }} className="assignment-item">
-                                    {assignment.name}
-                                </div>
-                            ))}
-                            {thursdayAssignments.length > 4 && (
-                                <div className="more-items">+{thursdayAssignments.length - 4} more</div>
-                            )}
+                            {thursdayAssignments.slice(0, 4).map(([key, assignment], index) => {
+                                const isCompleted = completedAssignments[weekDays[4]]?.includes(index) || false;
+                                return (
+                                    <div   
+                                        key={key}
+                                        style={{
+                                            color: assignment.color,
+                                            textDecoration: isCompleted ? 'line-through' : 'none',
+                                            opacity: isCompleted ? 0.6 : 1
+                                        }}
+                                        className="assignment-item"
+                                    >
+                                        {assignment.name}
+                                    </div>
+                                );
+                            })}
                         </>
                     )}
                 </div>
@@ -203,14 +235,22 @@ function WeekToDo() {
                         <div className="empty-day">No Assignments</div>
                     ) : (
                         <>
-                            {fridayAssignments.slice(0, 4).map(([key, assignment]) => (
-                                <div key={key} style= {{ color: assignment.color }} className="assignment-item">
-                                    {assignment.name}
-                                </div>
-                            ))}
-                            {fridayAssignments.length > 4 && (
-                                <div className="more-items">+{fridayAssignments.length - 4} more</div>
-                            )}
+                            {fridayAssignments.slice(0, 4).map(([key, assignment], index) => {
+                                const isCompleted = completedAssignments[weekDays[5]]?.includes(index) || false;
+                                return (
+                                    <div   
+                                        key={key}
+                                        style={{
+                                            color: assignment.color,
+                                            textDecoration: isCompleted ? 'line-through' : 'none',
+                                            opacity: isCompleted ? 0.6 : 1
+                                        }}
+                                        className="assignment-item"
+                                    >
+                                        {assignment.name}
+                                    </div>
+                                );
+                            })}
                         </>
                     )}
                 </div>
@@ -221,14 +261,22 @@ function WeekToDo() {
                         <div className="empty-day">No Assignments</div>
                     ) : (
                         <>
-                            {saturdayAssignments.slice(0, 4).map(([key, assignment]) => {
-                                <div key={key} style= {{ color: assignment.color }} className="assignment-item">
-                                    {assignment.name}
-                                </div>
+                            {saturdayAssignments.slice(0, 4).map(([key, assignment], index) => {
+                                const isCompleted = completedAssignments[weekDays[6]]?.includes(index) || false;
+                                return (
+                                    <div   
+                                        key={key}
+                                        style={{
+                                            color: assignment.color,
+                                            textDecoration: isCompleted ? 'line-through' : 'none',
+                                            opacity: isCompleted ? 0.6 : 1
+                                        }}
+                                        className="assignment-item"
+                                    >
+                                        {assignment.name}
+                                    </div>
+                                );
                             })}
-                            {saturdayAssignments.length > 4 && (
-                                <div className="more-items">+{saturdayAssignments.length - 4} more</div>
-                            )}
                         </>
                     )}
                 </div>
