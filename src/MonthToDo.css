@@ -178,6 +178,14 @@ body {
     text-align: center;
 }
 
+.allCompleted {
+    font-size: 11px;
+    color: #28a745;
+    font-weight: 600;
+    margin-top: 6px;
+    text-align: center;
+}
+
 /* Hover popup */
 .hoverPopup {
     position: fixed;
