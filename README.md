@@ -20,6 +20,7 @@ I got this idea because I've been encountering a lot of different ways that peop
 * Assisting me with CSS styling (especially with getting popups to work)
 * Helped me with storing the dates and some manipulation with that
 * CSV reading and manipulation
+* Making the mini add assignments page from the semester page that I already had
 
 Things I need to do:
 Include a way for the user to add items to their to do list from the daily, weekly, and monthly pages.
