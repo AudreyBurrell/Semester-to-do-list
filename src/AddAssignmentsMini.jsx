@@ -1,56 +1,32 @@
-import './AddAssignmentsSemester.css'; //remember to change it to mini later
-import { useState, useRef } from 'react';  
+import './AddAssignmentsSemester.css';
+import { useState } from 'react';  
 import { useNavigate, useLocation } from 'react-router-dom'; 
 
 function AddAssignmentsMini() {
     //fetching from state
     const location = useLocation();
-    const { assignments, classes, completedAssignments, returnTo } =  location.state || { assignments: {}, classes: [], completedAssignments: {}, returnTo: '' };
+    const { assignments, classes, completedAssignments, returnTo } = location.state || { 
+        assignments: {}, 
+        classes: [], 
+        completedAssignments: {}, 
+        returnTo: 'daily' 
+    };
     console.log('Entering add assignments mini');
     console.log('Received assignments:', assignments);
     console.log('Received classes:', classes); 
     console.log('Return to:', returnTo);
 
-    //back button
-    const navigate = useNavigate();
-    const handleBackBtn = () => {
-        console.log('Back button pressed');
-        //daily
-        if (returnTo === "daily") {
-            navigate('/DailyToDo', {
-                state: {
-                    assignments: assignments,
-                    classes: classes,
-                    completedAssignments: completedAssignments
-                }
-            });
-        }
-        //weekly
-        if (returnTo === "weekly") {
-            navigate('/WeekToDo', {
-                state: {
-                    assignments: assignments,
-                    classes: classes,
-                    completedAssignments: completedAssignments
-                }
-            });
-        }
-        //monthly
-        if (returnTo === "monthly") {
-            navigate('/MonthToDo', {
-                state: {
-                    assignments: assignments,
-                    classes: classes,
-                    completedAssignments: completedAssignments
-                }
-            });
-        }
-    }
-    //class selection and display stuff
-    const [selectedClass, setSelectedClass] = useState(null);
-    const [showAddClassForm, setShowAddClassForm] = useState(false); 
-    const [newClassName, setNewClassName] = useState(''); 
+    // Initialize local state with passed-in values
+    const [localClasses, setLocalClasses] = useState(classes);
+    const [assignmentsList, setAssignmentsList] = useState(assignments);
+    const [showAddClassForm, setShowAddClassForm] = useState(false);
+    const [newClassName, setNewClassName] = useState('');
     const [selectedColor, setSelectedColor] = useState('#4caf50');
+    const [selectedClass, setSelectedClass] = useState(null);
+    const [dueDate, setDueDate] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [assignmentName, setAssignmentName] = useState('');
+
     const colorOptions = [
         { name: 'Red', value: '#f44336' },
         { name: 'Pink', value: '#e91e63' },
@@ -66,28 +42,155 @@ function AddAssignmentsMini() {
         { name: 'Gray', value: '#757575'},
         { name: 'Black', value: '#000'}
     ];
-    const handleClassSelect = (classId) => {
-        setSelectedClass(classId);
+
+    const navigate = useNavigate();
+
+    // Back button - doesn't save changes
+    const handleBackBtn = () => {
+        console.log('Back button pressed - discarding changes');
+        if (returnTo === "daily") {
+            navigate('/DailyToDo', {
+                state: {
+                    assignments: assignments,  // Original assignments
+                    classes: classes,  // Original classes
+                    completedAssignments: completedAssignments
+                }
+            });
+        }
+        if (returnTo === "weekly") {
+            navigate('/WeekToDo', {
+                state: {
+                    assignments: assignments,
+                    classes: classes,
+                    completedAssignments: completedAssignments
+                }
+            });
+        }
+        if (returnTo === "monthly") {
+            navigate('/MonthToDo', {
+                state: {
+                    assignments: assignments,
+                    classes: classes,
+                    completedAssignments: completedAssignments
+                }
+            });
+        }
     };
+
+    // Done button - saves changes
+    const handleDone = () => {
+        console.log('Done adding assignments - saving changes');
+        if (returnTo === "daily") {
+            navigate('/DailyToDo', {
+                state: {
+                    assignments: assignmentsList,  // Updated assignments
+                    classes: localClasses,  // Updated classes
+                    completedAssignments: completedAssignments
+                }
+            });
+        }
+        if (returnTo === "weekly") {
+            navigate('/WeekToDo', {
+                state: {
+                    assignments: assignmentsList,
+                    classes: localClasses,
+                    completedAssignments: completedAssignments
+                }
+            });
+        }
+        if (returnTo === "monthly") {
+            navigate('/MonthToDo', {
+                state: {
+                    assignments: assignmentsList,
+                    classes: localClasses,
+                    completedAssignments: completedAssignments
+                }
+            });
+        }
+    };
+
+    // Class management
     const handleAddClassClick = () => {
         setShowAddClassForm(!showAddClassForm);
     };
 
+    const handleSaveClass = () => {
+        if (newClassName.trim()) {
+            const newClass = {
+                id: Date.now(), 
+                name: newClassName,
+                color: selectedColor
+            };
+            setLocalClasses([...localClasses, newClass]);
+            setNewClassName('');
+            setSelectedColor('#4caf50');
+            setShowAddClassForm(false);
+        }
+    };
 
-    //item preview stuff
-    const [dueDate, setDueDate] = useState('');
-    const [startDate, setStartDate] = useState('');
-    const [assignmentName, setAssignmentName] = useState('');
+    const handleCancelAddClass = () => {
+        setNewClassName('');
+        setSelectedColor('#4caf50');
+        setShowAddClassForm(false);
+    };
 
+    const handleClassSelect = (classId) => {
+        setSelectedClass(classId);
+    };
 
+    // Add assignment to list
+    const handleAddToList = () => {
+        if (!assignmentName.trim() || !dueDate || !selectedClass) {
+            alert('Please fill in Assignment Name, Due Date, and select a Class');
+            return;
+        }
+
+        const selectedClassObj = localClasses.find(c => c.id === selectedClass);
+        const assignmentData = {
+            id: Date.now(),
+            name: assignmentName,
+            color: selectedClassObj.color,
+            className: selectedClassObj.name
+        };
+
+        const newAssignmentsList = {...assignmentsList};
+
+        if (startDate && startDate <= dueDate) {
+            const start = new Date(startDate);
+            const end = new Date(dueDate);
+            for (let date = new Date(start); date <= end; date.setDate(date.getDate() + 1)) {
+                const dateKey = date.toISOString().split('T')[0];
+                if (!newAssignmentsList[dateKey]){
+                    newAssignmentsList[dateKey] = [];
+                }
+                newAssignmentsList[dateKey].push({...assignmentData});
+            }
+        } else {
+            if (!newAssignmentsList[dueDate]) {
+                newAssignmentsList[dueDate] = [];
+            }
+            newAssignmentsList[dueDate].push(assignmentData);
+        }
+
+        setAssignmentsList(newAssignmentsList);
+        console.log(newAssignmentsList);
+
+        // Clear the form
+        setAssignmentName('');
+        setDueDate('');
+        setStartDate('');
+        setSelectedClass(null);
+    };
+
+    const hasNewAssignments = Object.keys(assignmentsList).length > Object.keys(assignments).length;
 
     return (
         <div>
-            <div className = "header"> 
+            <div className="header"> 
                 <button className="backBtn" onClick={handleBackBtn}>&larr; Back</button> 
                 <h3>Enter in Items</h3>
             </div>
-            <div className="manualEntryArea">
+            <div className="manualEnterArea">
                 <div className="dateArea">
                     <form>
                         <label htmlFor="dueDate">Due Date:</label>
@@ -98,41 +201,43 @@ function AddAssignmentsMini() {
                         <input type="date" id="startDate" name="startDate" value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
                     </form>
                 </div>
-            </div>
-            <div className="selectClassArea">
-                <div className="assignmentNameArea">
-                    <label htmlFor="assignmentName">Assignment Name:</label>
-                    <input type="text" id="assignmentName" name="assignmentName" required value={assignmentName} onChange={(e) => setAssignmentName(e.target.value)}/>
-                </div>
-                <p id="selectAClassInstruction">Select a class:</p>
-                <div className="classButtonsContainer">
-                    {classes.map((classItem) => (
-                        <button
-                            key={classItem.id}
-                            className={`classButton ${selectedClass === classItem.id ? 'selectedClass' : ''}`}
-                            style={{
-                                borderColor: classItem.color,
-                                color: selectedClass === classItem.id ? 'white' : classItem.color,
-                                backgroundColor: selectedClass === classItem.id ? classItem.color : 'white'
-                            }}
-                            onClick={() => handleClassSelect(classItem.id)}
-                        >
-                            {classItem.name}
-                        </button>
-                    ))}
-                </div>
-                <button className="addClass" onClick={handleAddClassClick}>+ Add Class</button>
-            </div>
-            {/* 
-                
+                <div className="selectClassArea">
+                    <div className="assignmentNameArea">
+                        <label htmlFor="assignmentName">Assignment Name:</label>
+                        <input type="text" id="assignmentName" name="assignmentName" required value={assignmentName} onChange={(e) => setAssignmentName(e.target.value)}/>
+                    </div>
+                    <p id="selectAClassInstruction">Select a class:</p>
+                    <div className="classButtonsContainer">
+                        {localClasses.map((classItem) => (
+                            <button
+                                key={classItem.id}
+                                className={`classButton ${selectedClass === classItem.id ? 'selectedClass' : ''}`}
+                                style={{
+                                    borderColor: classItem.color,
+                                    color: selectedClass === classItem.id ? 'white' : classItem.color,
+                                    backgroundColor: selectedClass === classItem.id ? classItem.color : 'white'
+                                }}
+                                onClick={() => handleClassSelect(classItem.id)}
+                            >
+                                {classItem.name}
+                            </button>
+                        ))}
+                    </div>
+                    <button className="addClass" onClick={handleAddClassClick}>+ Add Class</button>
                     {showAddClassForm && (
                         <div className="addClassForm"> 
-                            <input type="text" placeholder = "Class name" value = {newClassName} onChange={(e) => setNewClassName(e.target.value)} />
+                            <input type="text" placeholder="Class name" value={newClassName} onChange={(e) => setNewClassName(e.target.value)} />
                             <div className="colorPickerArea">
                                 <label>Choose color:</label>
                                 <div className="colorOptions">
                                     {colorOptions.map((color) => (
-                                        <div key={color.value} className={`colorOption ${selectedColor === color.value ? 'selected' : ''}`} style={{ backgroundColor: color.value }} onClick={() => setSelectedColor(color.value)} title={color.name} />
+                                        <div 
+                                            key={color.value} 
+                                            className={`colorOption ${selectedColor === color.value ? 'selected' : ''}`} 
+                                            style={{ backgroundColor: color.value }} 
+                                            onClick={() => setSelectedColor(color.value)} 
+                                            title={color.name} 
+                                        />
                                     ))}
                                 </div>
                             </div>
@@ -143,7 +248,7 @@ function AddAssignmentsMini() {
                         </div>
                     )}
                 </div>
-                <div className = "checkingArea">
+                <div className="checkingArea">
                     <div className="itemPreview">
                         {assignmentName || dueDate || selectedClass ? (
                             <div className="previewContent">
@@ -154,30 +259,27 @@ function AddAssignmentsMini() {
                                 {selectedClass && (
                                     <p
                                         className="previewClass"
-                                        style={{ color: classes.find(c => c.id === selectedClass)?.color }}
+                                        style={{ color: localClasses.find(c => c.id === selectedClass)?.color }}
                                     >
-                                        {classes.find(c => c.id === selectedClass)?.name}
+                                        {localClasses.find(c => c.id === selectedClass)?.name}
                                     </p>
                                 )}
                             </div>
                         ) : (
                             <p>Item preview will appear here.</p>
-                        )
-                        }
+                        )}
                     </div>
                     <button className="addToListBtn" onClick={handleAddToList}>Add to List</button>
                 </div>
             </div>
             <div className="navigationArea">
-                <button className="goToTodoListBtn" onClick={handleGoToList}> Go to To-Do List &rarr; </button>
-            </div> */}
-
-        </div> //don't delete this, everything goes above this
-    )
-
+                <button className="goToTodoListBtn" onClick={handleDone}>Done &rarr;</button>
+            </div>
+        </div>
+    );
 }
 
-export default AddAssignmentsMini; 
+export default AddAssignmentsMini;
 
 //when the back button is pressed, if there has been any assignments added, a popup should appear that says exit with or without adding those items to the list
 //If I were to do a CSV, the user would need to know to just update their original CSV and put it in (or maybe I could just add what it gets from?)
