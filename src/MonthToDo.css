@@ -7,11 +7,20 @@ body {
 }
 
 /* Navigation buttons container */
-.navigationBtnContainer {
+/* .navigationBtnContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 1400px;
+    margin: 0 auto 30px auto;
+    padding: 20px;
+    gap: 60px;
+} */
+ .navigationBtnContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 965px;
     margin: 0 auto 30px auto;
     padding: 20px;
     gap: 60px;
@@ -87,20 +96,35 @@ body {
 }
 
 /* Calendar area */
-.calanderArea {
+/* .calanderArea {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 20px 40px 20px;
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+} */
+ .calanderArea {
+    width: 965px;
+    margin: 0 auto;
+    padding: 0;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
 /* Header */
-.calanderArea .header {
+/* .calanderArea .header {
     padding: 30px 20px;
     text-align: center;
     border-bottom: 3px solid #28a745;
+} */
+ .calanderArea .header {
+    padding: 30px 40px;
+    text-align: center;
+    border-bottom: 3px solid #28a745;
+    background-color: white;
 }
 
 .calanderArea .header h3 {
