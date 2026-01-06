@@ -43,13 +43,16 @@ body {
 
 /* Manual enter area */
 .manualEnterArea {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 30px;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 40px 0 !important;
+    padding: 30px 40px !important;
     background: whitesmoke;
     border-radius: 15px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box !important;
 }
+
 
 /* Date area - forms appear next to each other at top */
 .dateArea {
@@ -105,8 +108,8 @@ body {
     border-radius: 6px;
     font-size: 20px;
     transition: border-color 0.3s ease;
-    width: 500px;
-    max-width: 100%;
+    width: 800px;
+    /* max-width: 100%; */
 }
 
 .assignmentNameArea input:focus {
