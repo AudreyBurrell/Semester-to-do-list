@@ -499,3 +499,17 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
 }
+
+/* for the mini mage */
+.backBtn {
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: white;
+    width: 100px;
+}
