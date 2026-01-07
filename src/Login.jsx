@@ -6,16 +6,34 @@ function Login() {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const handleLogin = () => { 
-        if (username.trim() === '' || password.trim() === '') {
-            alert('Please fill in both username and password');
-            return;
-        } else {
-            console.log('Login clicked!')
-            console.log("Username:", username);
-            console.log("Password:", password);
-            navigate('/AddOrView');
+    const [error, setError] = useState('');
+    const handleLogin = async (e) => { 
+        e.preventDefault();
+        try {
+            const response = await fetch('http://localhost:5000/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            const data = await response.json();
+            if (data.success) {
+                navigate('/AddorView');
+            } else {
+                setError(data.message);
+            }
+        } catch (err) {
+            setError('Server error. Please try again.');
+            console.error(err);
         }
+        // if (username.trim() === '' || password.trim() === '') {
+        //     alert('Please fill in both username and password');
+        //     return;
+        // } else {
+        //     console.log('Login clicked!')
+        //     console.log("Username:", username);
+        //     console.log("Password:", password);
+        //     navigate('/AddOrView');
+        // }
     };
     return (
         <div className="loginCard">
