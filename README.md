@@ -22,6 +22,10 @@ I got this idea because I've been encountering a lot of different ways that peop
 * CSV reading and manipulation
 * Making the mini add assignments page from the semester page that I already had
 
+Notes about the backend:
+* Used notes that I had in a previous project, StudyingGame (or Masterly) to build the start of it, and I changed it as I went on
+* Used AI to help set up the folder structure and install everything that I needed
+
 Things I need to do:
 Backend user authentication and storage 
 
