@@ -25,9 +25,6 @@ I got this idea because I've been encountering a lot of different ways that peop
 Things I need to do:
 Backend user authentication and storage 
 
-BUGS:
-This isn't so much of a bug as much of a design problem. I want the cards on everything to stay the same bigger size throughout (the same size as it is when stuff is in it, it's smaller currently if the card is empty)
-
 ## Contact
 * **Portfolio:** AudreyBurrell.github.io
 * [**Linkedln**](www.linkedin.com/in/audrey-burrell-786479341)
