@@ -5,8 +5,8 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import fs from "fs";
 import path from "path";
-//when I do bcrypt, put it here
-//imports from otehr pages
+import bcrypt from "bcrypt";
+//imports from other pages
 
 const app = express();
 const PORT = 5000;
@@ -16,8 +16,54 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser()); 
 
-//routes go here. Ex: app.use("/api/savedSets", savedSetsRoutes)
+const dataFilePath = path.resolve("data/users.json");
 
+//routes go here for other backend code. Ex: app.use("/api/savedSets", savedSetsRoutes) 
+
+
+
+//login and create account
+app.post("/login", async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const users = fs.existsSync(dataFilePath)
+            ? JSON.parse(fs.readFileSync(dataFilePath, "utf8"))
+            : [];
+        const user = users.find(u => u.username === username);
+        if (!user) {
+            return res.status(401).json({ success: false, message: "Invalid username or password." });
+        }
+        const match = await bcrypt.compare(password, user.password);
+        if (!match) {
+            return res.status(401).json({ success: false, message: "Invalid username or password." });
+        } 
+        res.json({ success: true, message: "Login successful!" });
+    } catch (err) {
+        console.error("Error reading from users.json:", err);
+        res.status(500).json({ success: false, message: "Server error." });
+    }
+});
+app.post("/create-account", async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const data = fs.existsSync(dataFilePath)
+            ? JSON.parse(fs.readFileSync(dataFilePath, "utf8"))
+            : []; 
+        if (data.find(u => u.username === username)){
+            return res.status(400).json({ success: false, message: "Username already exists." })
+        }
+        const hashedPassword = await bcrypt.hash(password, 10);
+        data.push({ username, password: hashedPassword });
+        fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
+        res.json({ success: true, message: "Account created successfully!" });
+    } catch (err) {
+        console.error("Error writing to users.json:", err);
+        res.status(500).json({ success: false, message: "Server error." });
+    }
+});
+
+
+//stuff for testing if it's running
 app.get("/", (req, res) => {
     res.send("Assignment Tracker backend is running!")
 });
