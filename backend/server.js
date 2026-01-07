@@ -9,7 +9,7 @@ import path from "path";
 //imports from otehr pages
 
 const app = express();
-const PORT = 5173;
+const PORT = 5000;
 
 app.use(cors());
 app.use(express.json());
