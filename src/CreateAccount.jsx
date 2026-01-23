@@ -26,6 +26,7 @@ function CreateAccount() {
             });
             const data = await response.json();
             if (data.success) {
+                localStorage.setItem('userId', username);
                 navigate('/DailyToDo');
             } else {
                 setError(data.message);

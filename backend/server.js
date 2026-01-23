@@ -37,7 +37,7 @@ app.post("/login", async (req, res) => {
         if (!match) {
             return res.status(401).json({ success: false, message: "Invalid username or password." });
         } 
-        res.json({ success: true, message: "Login successful!" });
+        res.json({ success: true, message: "Login successful!", userId: username });
     } catch (err) {
         console.error("Error reading from users.json:", err);
         res.status(500).json({ success: false, message: "Server error." });
@@ -86,7 +86,7 @@ app.post("/create-account", async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         data.push({ username, password: hashedPassword });
         fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
-        res.json({ success: true, message: "Account created successfully!" });
+        res.json({ success: true, message: "Account created successfully!", userId: username });
     } catch (err) {
         console.error("Error writing to users.json:", err);
         res.status(500).json({ success: false, message: "Server error." });
