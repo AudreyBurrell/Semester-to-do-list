@@ -91,7 +91,7 @@ function DailyToDo() {
     //add assignments button
     const handleAddAssignments = () => {
         console.log('Add assignments clicked');
-        navigate('/AddAssignmentsMini', {
+        navigate('/AddAssignmentsSemester', {
             state: {
                 assignments: assignments,
                 classes: classes,

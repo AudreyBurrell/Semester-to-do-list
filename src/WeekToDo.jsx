@@ -86,7 +86,7 @@ function WeekToDo() {
     //add assignment button
     const handleAddAssignment = () => {
         console.log('Add Assignment pressed');
-        navigate('/AddAssignmentsMini', {
+        navigate('/AddAssignmentsSemester', {
             state: {
                 assignments: assignments,
                 classes: classes,

@@ -110,7 +110,7 @@ function MonthToDo() {
     //add assignments button
     const handleAddAssignments = () => {
         console.log('Add Assignments pressed');
-        navigate('/AddAssignmentsMini', {
+        navigate('/AddAssignmentsSemester', {
             state: {
                 assignments: assignments,
                 classes: classes,

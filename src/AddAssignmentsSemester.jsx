@@ -1,13 +1,24 @@
 import './AddAssignmentsSemester.css'
-import { useState, useRef } from 'react';  //Allows things to be updated and stored
-import { useNavigate } from 'react-router-dom';
+import { useState, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function AddAssignmentsSemester() {
-    //add class functionality stuff
-    const [classes, setClasses] = useState([]); //classes is an array that holds all the classes the user has added, setClasses is a function to update that array, useState([]) starts as an empty array
-    const [showAddClassForm, setShowAddClassForm] = useState(false); //controls whether the add form is visible
-    const [newClassName, setNewClassName] = useState(''); //stores the class name
-    const [selectedColor, setSelectedColor] = useState('#4caf50'); //stores the color, defaults to green
+    // Receive state from navigation
+    const location = useLocation();
+    const { assignments: passedAssignments, classes: passedClasses, completedAssignments, returnTo } = location.state || { 
+        assignments: {}, 
+        classes: [], 
+        completedAssignments: {},
+        returnTo: null 
+    };
+
+    // Initialize with passed data if available
+    const [classes, setClasses] = useState(passedClasses || []);
+    const [assignmentsList, setAssignmentsList] = useState(passedAssignments || {});
+    
+    const [showAddClassForm, setShowAddClassForm] = useState(false);
+    const [newClassName, setNewClassName] = useState('');
+    const [selectedColor, setSelectedColor] = useState('#4caf50');
     const [selectedClass, setSelectedClass] = useState(null);
     const colorOptions = [
         { name: 'Red', value: '#f44336' },
@@ -24,9 +35,11 @@ function AddAssignmentsSemester() {
         { name: 'Gray', value: '#757575'},
         { name: 'Black', value: '#000'}
     ];
+
     const handleAddClassClick = () => {
         setShowAddClassForm(!showAddClassForm);
     };
+
     const handleSaveClass = () => {
         if (newClassName.trim()) {
             const newClass = {
@@ -35,25 +48,28 @@ function AddAssignmentsSemester() {
                 color: selectedColor
             };
             setClasses([...classes, newClass]);
-            setNewClassName(''); //resetting things because it's been added to the array
+            setNewClassName('');
             setSelectedColor('#4caf50');
             setShowAddClassForm(false);
         }
     };
+
     const handleCancelAddClass = () => {
         setNewClassName('');
         setSelectedColor('#4caf50');
         setShowAddClassForm(false);
     };
+
     const handleClassSelect = (classId) => {
         setSelectedClass(classId);
     };
-    //item preview stuff
+
+    // Item preview stuff
     const [dueDate, setDueDate] = useState('');
     const [startDate, setStartDate] = useState('');
     const [assignmentName, setAssignmentName] = useState('');
-    //add to list button stuff
-    const [assignmentsList, setAssignmentsList] = useState({});
+
+    // Add to list button stuff
     const handleAddToList = () => {
         if (!assignmentName.trim() || !dueDate || !selectedClass) {
             alert('Please fill in Assignment Name, Due Date, and select a Class');
@@ -85,22 +101,25 @@ function AddAssignmentsSemester() {
         }
         setAssignmentsList(newAssignmentsList);
         console.log(newAssignmentsList);
-        //clearing the form
+        // Clearing the form
         setAssignmentName('');
         setDueDate('');
         setStartDate('');
         setSelectedClass(null);
     };
-    //CSV popup stuff
+
+    // CSV popup stuff
     const [showCSVPopup, setShowCSVPopup] = useState(false);
     const handleCSVClick = () => {
         setShowCSVPopup(!showCSVPopup);
     };
-    //the actual uploading and parsing of the CSV stuff.
+
+    // The actual uploading and parsing of the CSV stuff
     const fileInputRef = useRef(null);
     const handleUploadClick = () => {
         fileInputRef.current.click();
     };
+
     const handleFileSelect = (event) => {
         const file = event.target.files[0];
         if (!file) return;
@@ -111,6 +130,7 @@ function AddAssignmentsSemester() {
         };
         reader.readAsText(file);
     };
+
     const parseCSV = text => {
         const lines = text.trim().split('\n');
         if (lines.length < 2) {
@@ -175,7 +195,6 @@ function AddAssignmentsSemester() {
         alert('CSV uploaded successfully!');
     }
 
-// You can now remove the processCSVRow function entirely
     const convertDateFormat = (dateStr) => {
         if (dateStr.includes('-')) {
             return dateStr;
@@ -183,61 +202,31 @@ function AddAssignmentsSemester() {
         const [month, day, year] = dateStr.split('/');
         return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
     };
-    const processCSVRow = (assignmentName, dueDate, startDate, className, colorName) => {
-        const formattedDueDate = convertDateFormat(dueDate);
-        const formattedStartDate = startDate ? convertDateFormat(startDate) : null;
-        let classObj = classes.find(c => c.name.toLowerCase() === className.toLowerCase());
-        if (!classObj) {
-            const colorOption = colorOptions.find(c => c.name.toLowerCase() === colorName?.toLowerCase());
-            const newColor = colorOption ? colorOption.value : '#4caf50';
-            classObj = {
-                id: Date.now() + Math.random(),
-                name: className,
-                color: newColor
-            };
-            setClasses(prevClasses => [...prevClasses, classObj]);
-        }
-        const assignmentData = {
-            id: Date.now() + Math.random(),
-            name: assignmentName,
-            color: classObj.color,
-            className: classObj.name
-        };
-        setAssignmentsList(prevList => {
-            const newAssignmentsList = {...prevList};
-            if (formattedStartDate && formattedStartDate <= formattedDueDate) {
-                const start = new Date(formattedStartDate);
-                const end = new Date(formattedDueDate);
-                for (let date = new Date(start); date <= end; date.setDate(date.getDate() + 1)) {
-                    const dateKey = date.toISOString().split('T')[0];
-                    if (!newAssignmentsList[dateKey]) {
-                        newAssignmentsList[dateKey] = [];
-                    }
-                    newAssignmentsList[dateKey].push({...assignmentData});
-                }
-            } else {
-                if (!newAssignmentsList[formattedDueDate]) {
-                    newAssignmentsList[formattedDueDate] = [];
-                }
-                newAssignmentsList[formattedDueDate].push(assignmentData);
-            }
-            return newAssignmentsList;
-        })
-    }
-    //continue to to-do list code
+
+    // Continue to to-do list code
     const hasAssignments = Object.keys(assignmentsList).length > 0;
     const navigate = useNavigate();
+    
     const handleGoToList = () => {
-        console.log('Navigating to to-do list with:', assignmentsList)
-        //ADD THE NAVIGATION PART HERE
-        navigate('/DailyToDo', {
-            state: {
-                assignments: assignmentsList,
-                classes: classes
-            }
-        });
+        console.log('Navigating to to-do list with:', assignmentsList);
+        
+        const navigationState = {
+            assignments: assignmentsList,
+            classes: classes,
+            completedAssignments: completedAssignments || {}
+        };
+        
+        if (returnTo === 'daily') {
+            navigate('/DailyToDo', { state: navigationState });
+        } else if (returnTo === 'weekly') {
+            navigate('/WeekToDo', { state: navigationState });
+        } else if (returnTo === 'monthly') {
+            navigate('/MonthToDo', { state: navigationState });
+        } else {
+            // Default to DailyToDo if no returnTo specified
+            navigate('/DailyToDo', { state: navigationState });
+        }
     }
-
 
     return (
         <div>
@@ -322,7 +311,7 @@ function AddAssignmentsSemester() {
                     <button className="addToListBtn" onClick={handleAddToList}>Add to List</button>
                 </div>
             </div>
-            {hasAssignments && (
+            {(hasAssignments || returnTo) && (
                 <div className="navigationArea">
                     <button className="goToTodoListBtn" onClick={handleGoToList}> Go to To-Do List &rarr; </button>
                 </div>
@@ -353,13 +342,5 @@ function AddAssignmentsSemester() {
     )
 }
 
-export default AddAssignmentsSemester; 
+export default AddAssignmentsSemester;
 
-//Storing:
-//Every date is going to have a list.
-//Each item in the list will be it's own list going in this order:
-//Color, item (just the text that they inputted)
-//When they put in a start date, the item will add to each date in the main list from start to finish
-
-//DON'T FORGET TO ADD A BUTTON THAT GOES TO ANOTHER PAGE
-//Clicking this button first pulls up a popup that displays all the assignments entered (organized by date ofc) and then the button that actually goes on
