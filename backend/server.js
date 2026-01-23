@@ -43,8 +43,39 @@ app.post("/login", async (req, res) => {
         res.status(500).json({ success: false, message: "Server error." });
     }
 });
+// app.post("/create-account", async (req, res) => {
+//     const { username, password } = req.body;
+//     try {
+//         const data = fs.existsSync(dataFilePath)
+//             ? JSON.parse(fs.readFileSync(dataFilePath, "utf8"))
+//             : []; 
+//         if (data.find(u => u.username === username)){
+//             return res.status(400).json({ success: false, message: "Username already exists." })
+//         }
+//         const hashedPassword = await bcrypt.hash(password, 10);
+//         data.push({ username, password: hashedPassword });
+//         fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
+//         res.json({ success: true, message: "Account created successfully!" });
+//     } catch (err) {
+//         console.error("Error writing to users.json:", err);
+//         res.status(500).json({ success: false, message: "Server error." });
+//     }
+// });
 app.post("/create-account", async (req, res) => {
     const { username, password } = req.body;
+    
+    // Add debugging
+    console.log("Received body:", req.body);
+    console.log("Username:", username);
+    console.log("Password:", password);
+    
+    if (!username || !password) {
+        return res.status(400).json({ 
+            success: false, 
+            message: "Username and password are required." 
+        });
+    }
+    
     try {
         const data = fs.existsSync(dataFilePath)
             ? JSON.parse(fs.readFileSync(dataFilePath, "utf8"))
