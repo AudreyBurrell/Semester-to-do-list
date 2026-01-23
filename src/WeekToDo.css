@@ -45,6 +45,15 @@ body {
     background-color: #6b7280;
 }
 
+.prevNextBtn button:nth-child(2) {
+    background-color: #28a745;
+    color: white;
+}
+
+.prevNextBtn button:nth-child(2):hover {
+    background-color: #218838;
+}
+
 .prevNextBtn button:last-child {
     background-color: #28a745;
     color: white;
