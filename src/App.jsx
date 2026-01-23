@@ -2,7 +2,7 @@ import './App.css'
 import { useState } from 'react'; 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './Home';
-import AddOrView from './AddOrView' 
+// import AddOrView from './AddOrView' 
 //once I have more pages, import them from what's exported at the end of the jsx
 //and then add more routes to the list below
 import DailyToDo from './DailyToDo'
@@ -20,7 +20,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/CreateAccount" element={<CreateAccount />} />
-          <Route path="/AddOrView" element={<AddOrView />} />
+          {/* <Route path="/AddOrView" element={<AddOrView />} /> */}
           <Route path="/DailyToDo" element={<DailyToDo />} />
           <Route path="/AddAssignmentsSemester" element={<AddAssignmentsSemester />} />
           <Route path="/WeekToDo" element={<WeekToDo />} />

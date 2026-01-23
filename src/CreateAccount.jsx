@@ -26,7 +26,7 @@ function CreateAccount() {
             });
             const data = await response.json();
             if (data.success) {
-                navigate('/AddOrView');
+                navigate('/DailyToDo');
             } else {
                 setError(data.message);
             }

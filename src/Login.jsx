@@ -17,7 +17,7 @@ function Login() {
             });
             const data = await response.json();
             if (data.success) {
-                navigate('/AddorView');
+                navigate('/DailyToDo');
             } else {
                 setError(data.message);
             }
