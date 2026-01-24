@@ -39,4 +39,6 @@ Thumbs.db
 
 #other files
 users.json
+assignments.json
+classes.json
 data/

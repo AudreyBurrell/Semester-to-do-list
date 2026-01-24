@@ -17,6 +17,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser()); 
 
 const dataFilePath = path.resolve("data/users.json");
+const assignmentsFilePath = path.resolve("data/assignments.json");
+const classesFilePath = path.resolve("data/classes.json");
 
 //routes go here for other backend code. Ex: app.use("/api/savedSets", savedSetsRoutes) 
 
@@ -89,6 +91,39 @@ app.post("/create-account", async (req, res) => {
         res.json({ success: true, message: "Account created successfully!", userId: username });
     } catch (err) {
         console.error("Error writing to users.json:", err);
+        res.status(500).json({ success: false, message: "Server error." });
+    }
+});
+
+//saving assignments to backend
+app.post("/api/assignments", async (req, res) => {
+    const { userId, assignments } = req.body;
+    if(!userId || !assignments) {
+        return res.status(400).json({ success: false, message: "userId and assignments are required." });
+    }
+    try {
+        const allAssignments = fs.existsSync(assignmentsFilePath)
+            ? JSON.parse(fs.readFileSync(assignmentsFilePath, "utf8"))
+            : {};
+        allAssignments[userId] = assignments;
+        fs.writeFileSync(assignmentsFilePath, JSON.stringify(allAssignments, null, 2));
+        res.json({ success: true, message: "Assignments saved!" });
+    } catch (err) {
+        console.error("Error saving assignments:", err);
+        res.status(500).json({ success: false, message: "Server error." });
+    }
+});
+//getting the assignments for said user
+app.get("/api/assignments/:userId", async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const allAssignments = fs.existsSync(assignmentsFilePath)
+            ? JSON.parse(fs.readFileSync(assignmentsFilePath, "utf8"))
+            : {};
+        const userAssignments = allAssignments[userId] || "{}";
+        res.json({ success: true, assignments: userAssignments });
+    } catch (err) {
+        console.error("Error loading assignments:", err);
         res.status(500).json({ success: false, message: "Server error." });
     }
 });
