@@ -207,14 +207,24 @@ function AddAssignmentsSemester() {
     const hasAssignments = Object.keys(assignmentsList).length > 0;
     const navigate = useNavigate();
     
-    const handleGoToList = () => {
+    const handleGoToList = async () => {
         console.log('Navigating to to-do list with:', assignmentsList);
-        
+        const userId = localStorage.getItem('userId');
         const navigationState = {
             assignments: assignmentsList,
             classes: classes,
             completedAssignments: completedAssignments || {}
         };
+        try {
+            await fetch('http://localhost:5000/api/assignments', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId: userId, assignments: assignmentsList })
+            });
+            console.log('Assignments saved to backend!');
+        } catch (err) {
+            console.error('Error saving assignments:', err);
+        }
         
         if (returnTo === 'daily') {
             navigate('/DailyToDo', { state: navigationState });

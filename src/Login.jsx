@@ -18,7 +18,14 @@ function Login() {
             const data = await response.json();
             if (data.success) {
                 localStorage.setItem('userId', username);
-                navigate('/DailyToDo');
+                const assignmentsRes = await fetch(`http://localhost:5000/api/assignments/${data.userId}`);
+                const assignmentsData = await assignmentsRes.json();
+                navigate('/DailyToDo', {
+                    state: {
+                        assignments: assignmentsData.assignments || {},
+                        classes: []
+                    }
+                });
             } else {
                 setError(data.message);
             }
