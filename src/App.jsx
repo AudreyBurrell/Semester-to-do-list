@@ -13,6 +13,7 @@ import CreateAccount from './CreateAccount'
 import WeekToDo from './WeekToDo'
 import MonthToDo from './MonthToDo'
 import SemesterProgress from './SemesterProgress'
+import ManageAssignments from './ManageAssignments'
 
 // import AddAssignmentsMini from './AddAssignmentsMini'
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/MonthToDo" element={<MonthToDo />} />
           {/* <Route path="/AddAssignmentsMini" element={<AddAssignmentsMini />} /> */}
           <Route path="/SemesterProgress" element={<SemesterProgress />} />
+          <Route path="/ManageAssignments" element={<ManageAssignments />} />
           
         </Routes>
     </BrowserRouter>

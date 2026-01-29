@@ -7,6 +7,7 @@ I got this idea because I've been encountering a lot of different ways that peop
 * **Add Assignments** - Create assignments with names, start dates, and due dates. The user can do this from a main page where they can add all the assignments for the semester (either manually or through CSV) and also on the daily/weekly/monthly views to manually add other things.
 * **Check Off Completed Work** - Mark assignments as complete.
 * **Multiple View Options** - The user can choose to have daily view, weekly overview, and monthly calendar view with month navigation. 
+* **Progress Tracking** - The user can view how far along they are in on each class in progress bars, with colors that correspond to the colors they previously assigned to their classes.
 * **User Authentication** - Login and create account functionality, goes along with the backend for storing assignments.
 * **Storing** - Assignments saved accross sessions
 

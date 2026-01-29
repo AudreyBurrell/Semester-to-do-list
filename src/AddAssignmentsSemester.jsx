@@ -238,11 +238,23 @@ function AddAssignmentsSemester() {
         }
     }
 
+    const handleManageAssignments = async () => {
+        console.log("Manage Assignments pressed");
+        navigate('/ManageAssignments', {
+            state: {
+                assignments: assignmentsList,
+                classes: classes,
+                completedAssignments: completedAssignments
+            }
+        });
+    }
+
     return (
         <div>
             <div className = "header"> 
                 <h3>Manually enter in items for the semester or upload a CSV. </h3> 
                 <button id="CSVBtn" onClick={handleCSVClick}> Upload CSV </button>
+                <button id="manageAssignments" onClick={handleManageAssignments}>Manage Assignments</button>
             </div>
             <div className = "manualEnterArea">
                 <div className="dateArea">
