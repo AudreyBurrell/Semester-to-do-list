@@ -127,6 +127,43 @@ app.get("/api/assignments/:userId", async (req, res) => {
         res.status(500).json({ success: false, message: "Server error." });
     }
 });
+app.post("/api/completed", async (req, res) => {
+    const { userId, completedAssignments } = req.body;
+    if(!userId || !completedAssignments) {
+        return res.status(400).json({ success: false, message: "userId and completedAssignments are required." });
+    }
+    try {
+        let allCompleted = {};
+        if (fs.existsSync(path.resolve("data/completed.json"))) {
+            const fileContent = fs.readFileSync(path.resolve("data/completed.json"), "utf8");
+            allCompleted = fileContent.trim() ? JSON.parse(fileContent) : {};
+        }
+        allCompleted[userId] = completedAssignments;
+        fs.writeFileSync(path.resolve("data/completed.json"), JSON.stringify(allCompleted, null, 2));
+        res.json({ success: true, message: "Completed assignments saved!" });
+    } catch (err) {
+        console.error("Error saving completed assignments:", err);
+        res.status(500).json({ success: false, message: "Server error." });
+    }
+});
+
+// Get completed assignments
+app.get("/api/completed/:userId", async (req, res) => {
+    const { userId } = req.params;
+    try {
+        let allCompleted = {};
+        if (fs.existsSync(path.resolve("data/completed.json"))) {
+            const fileContent = fs.readFileSync(path.resolve("data/completed.json"), "utf8");
+            allCompleted = fileContent.trim() ? JSON.parse(fileContent) : {};
+        }
+        const userCompleted = allCompleted[userId] || {};
+        res.json({ success: true, completedAssignments: userCompleted });
+    } catch (err) {
+        console.error("Error loading completed assignments:", err);
+        res.status(500).json({ success: false, message: "Server error." });
+    }
+});
+
 
 
 //stuff for testing if it's running

@@ -25,6 +25,7 @@ I got this idea because I've been encountering a lot of different ways that peop
 Notes about the backend:
 * Used notes that I had in a previous project, StudyingGame (or Masterly) to build the start of it, and I changed it as I went on
 * Used AI to help set up the folder structure and install everything that I needed
+* I used AI to help me with saving the assignments that have been completed
 
 Things I need to do:
 Backend user authentication and storage 

@@ -1,14 +1,31 @@
 import './DailyToDo.css'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 function DailyToDo() {
     const location = useLocation();
-    const { assignments, classes, completedAssignments: passedCompleteAssignments } =  location.state || { assignments: {}, classes: [], completedAssignments: {} };
+    const { assignments, classes, completedAssignments: passedCompletedAssignments } =  location.state || { assignments: {}, classes: [], completedAssignments: {} };
     console.log('Received assignments:', assignments);
     console.log('Received classes:', classes);
     const [currentDate, setCurrentDate] = useState(new Date());
     //getting the assignments based off the date
+    useEffect(() => {
+        const userId = localStorage.getItem('userId');
+        if(!userId) return;
+        const loadCompleted = async () => {
+            try {
+                const res = await fetch(`http://localhost:5000/api/completed/${userId}`);
+                const data = await res.json();
+                if (data.success) {
+                    setCompletedAssignments(data.completedAssignments || {});
+                    console.log('Loaded completed assignments:', data.completedAssignments);
+                }
+            } catch (err) {
+                console.error('Error loading completed assignments:', err);
+            }
+        };
+        loadCompleted();
+    }, []);
     const getAssignmentsForDate = (currentDate) => {
         const year = currentDate.getFullYear();
         const month = String(currentDate.getMonth() + 1).padStart(2, '0');
@@ -20,7 +37,7 @@ function DailyToDo() {
     };
     const todaysAssignments = getAssignmentsForDate(currentDate);
     //the actual items inside the list
-    const [completedAssignments, setCompletedAssignments] = useState(passedCompleteAssignments || {});
+    const [completedAssignments, setCompletedAssignments] = useState(passedCompletedAssignments || {});
      //previous and next buttons
     const handlePrevDay = () => {
         setCurrentDate(prev => {
@@ -43,28 +60,35 @@ function DailyToDo() {
         day: 'numeric'
     });
     //getting the items to complete
-    const handleToggleComplete = (index) => {
-        const year = currentDate.getFullYear();
-        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-        const day = String(currentDate.getDate()).padStart(2, '0');
-        const dateKey = `${year}-${month}-${day}`;
-        // const dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`;
-        setCompletedAssignments(prev => {
-            const currentCompleted = prev[dateKey] || [];
-            const isCompleted = currentCompleted.includes(index);   
-            if (isCompleted) {
-                return {
-                    ...prev,
-                    [dateKey]: currentCompleted.filter(i => i !== index)
-                };
-            } else {
-                return {
-                    ...prev,
-                    [dateKey]: [...currentCompleted, index]
-                };
-            }     
-        });
-    }
+    const handleToggleComplete = async (index) => {
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const dateKey = `${year}-${month}-${day}`;
+    
+    setCompletedAssignments(prev => {
+        const currentCompleted = prev[dateKey] || [];
+        const isCompleted = currentCompleted.includes(index);
+        
+        const newCompletedAssignments = isCompleted ? {
+            ...prev,
+            [dateKey]: currentCompleted.filter(i => i !== index)
+        } : {
+            ...prev,
+            [dateKey]: [...currentCompleted, index]
+        };
+        
+        // Save to backend
+        const userId = localStorage.getItem('userId');
+        fetch('http://localhost:5000/api/completed', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId, completedAssignments: newCompletedAssignments })
+        }).catch(err => console.error('Error saving completed:', err));
+        
+        return newCompletedAssignments;
+    });
+}
     //the week and month navigation
     const navigate = useNavigate();
     const handleWeekView = () => {
