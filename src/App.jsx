@@ -1,3 +1,4 @@
+
 import './App.css'
 import { useState } from 'react'; 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -11,6 +12,8 @@ import Login from './Login'
 import CreateAccount from './CreateAccount'
 import WeekToDo from './WeekToDo'
 import MonthToDo from './MonthToDo'
+import SemesterProgress from './SemesterProgress'
+
 // import AddAssignmentsMini from './AddAssignmentsMini'
 
 function App() {  
@@ -26,6 +29,8 @@ function App() {
           <Route path="/WeekToDo" element={<WeekToDo />} />
           <Route path="/MonthToDo" element={<MonthToDo />} />
           {/* <Route path="/AddAssignmentsMini" element={<AddAssignmentsMini />} /> */}
+          <Route path="/SemesterProgress" element={<SemesterProgress />} />
+          
         </Routes>
     </BrowserRouter>
     

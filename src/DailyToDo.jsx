@@ -112,6 +112,16 @@ function DailyToDo() {
             }
         });
     }
+    const handleClassProgress = () => {
+        console.log('Class progress pressed');
+        navigate('/SemesterProgress', {
+            state: {
+                assignments: assignments,
+                classes: classes,
+                completedAssignments: completedAssignments
+            }
+        });
+    }
     //add assignments button
     const handleAddAssignments = () => {
         console.log('Add assignments clicked');
@@ -138,6 +148,7 @@ function DailyToDo() {
                     <button disabled>Day View</button>
                     <button onClick={handleWeekView}>Week View</button>
                     <button onClick={handleMonthView}>Month View</button>
+                    <button onClick={handleClassProgress}>Progress</button>
                 </div>
             </div>
             <div className="currentDayCard">

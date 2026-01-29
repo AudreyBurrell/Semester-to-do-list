@@ -72,6 +72,16 @@ function WeekToDo() {
             }
         });
     }
+    const handleSemesterProgress = () => {
+        console.log('Semester progress clicked');
+        navigate('/SemesterProgress', {
+            state: {
+                assignments: assignments,
+                classes: classes,
+                completedAssignments: completedAssignments
+            }
+        });
+    }
     //the next and previous buttons
     const handlePrevWeek = () => {
         const newDate = new Date(currentDate);
@@ -108,6 +118,7 @@ function WeekToDo() {
                     <button onClick={handleDayView}>Day View</button>
                     <button disabled>Week View</button>
                     <button onClick={handleMonthView}>Month View</button>
+                    <button onClick={handleSemesterProgress}>Progress</button>
                 </div>
             </div>
             <div className="dayCardContainer">

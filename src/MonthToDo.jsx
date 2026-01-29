@@ -94,6 +94,16 @@ function MonthToDo() {
             }
         });
     }
+    const handleSemesterProgress = () => {
+        console.log('Semester Progress pressed');
+        navigate('/SemesterProgress', {
+            state: {
+                assignments: assignments,
+                classes: classes,
+                completedAssignments: completedAssignments
+            }
+        });
+    }
     //the next and previous button functionality
     const handlePrevBtn = () => {
         console.log('Previous button pressed');
@@ -132,6 +142,7 @@ function MonthToDo() {
                     <button onClick={handleDayBtn}>Day View</button>
                     <button onClick={handleWeekBtn}>Week View</button>
                     <button disabled>Month View</button>
+                    <button onClick={handleSemesterProgress}>Progress</button>
                 </div>
             </div>
             <div className="calanderArea">
