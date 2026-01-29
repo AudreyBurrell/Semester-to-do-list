@@ -120,7 +120,7 @@ app.get("/api/assignments/:userId", async (req, res) => {
         const allAssignments = fs.existsSync(assignmentsFilePath)
             ? JSON.parse(fs.readFileSync(assignmentsFilePath, "utf8"))
             : {};
-        const userAssignments = allAssignments[userId] || "{}";
+        const userAssignments = allAssignments[userId] || {};
         res.json({ success: true, assignments: userAssignments });
     } catch (err) {
         console.error("Error loading assignments:", err);
