@@ -9,7 +9,6 @@ function SemesterProgress() {
     //STEPS:
     //determine how many classes the user has and what their colors are. Then just set up the progress bars
     //then determine how many assignments the user has in that class and how many they have completed and update the progress bars
-
     const getClassesFromAssignments = (assignments) => {
         const classesMap = new Map();
         Object.values(assignments).forEach(assignmentsForDate => {
