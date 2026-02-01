@@ -33,6 +33,7 @@ body {
     padding: 10px 20px;
     background-color: #4caf50;
     color: white;
+    width: 200px !important;
 }
 
 #CSVBtn:hover, #manageAssignments:hover {
