@@ -4,8 +4,22 @@ import { useState } from 'react';
 
 function WeekToDo() {
     //fetching from state
-    const location = useLocation();
-    const { assignments, classes, completedAssignments } =  location.state || { assignments: {}, classes: [], completedAssignments: {} };
+    //const location = useLocation();
+    //const { assignments, classes, completedAssignments } =  location.state || { assignments: {}, classes: [], completedAssignments: {} };
+    const [assignments, setAssignments] = useState(() => {
+        const saved = localStorage.getItem('assignments');
+        return saved ? JSON.parse(saved) : {};
+    });
+
+    const [completedAssignments, setCompletedAssignments] = useState(() => {
+        const saved = localStorage.getItem('completedAssignments');
+        return saved ? JSON.parse(saved) : {};
+    });
+
+    const [classes, setClasses] = useState(() => {
+        const saved = localStorage.getItem('classes');
+        return saved ? JSON.parse(saved) : [];
+    });
     console.log('Entering week to do');
     console.log('Received assignments:', assignments);
     console.log('Received classes:', classes);

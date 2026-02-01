@@ -5,6 +5,7 @@ I got this idea because I've been encountering a lot of different ways that peop
 
 ## Features 
 * **Add Assignments** - Create assignments with names, start dates, and due dates. The user can do this from a main page where they can add all the assignments for the semester (either manually or through CSV) and also on the daily/weekly/monthly views to manually add other things.
+* **Assignment Editing** - The user can update the name, start, and end dates of each assignment by filtering which class it is labeled under, and they can also delete their assignments here too. 
 * **Check Off Completed Work** - Mark assignments as complete.
 * **Multiple View Options** - The user can choose to have daily view, weekly overview, and monthly calendar view with month navigation. 
 * **Progress Tracking** - The user can view how far along they are in on each class in progress bars, with colors that correspond to the colors they previously assigned to their classes.
@@ -22,6 +23,7 @@ I got this idea because I've been encountering a lot of different ways that peop
 * Helped me with storing the dates and some manipulation with that
 * CSV reading and manipulation
 * Making the mini add assignments page from the semester page that I already had
+* Pretty heavily for the manage assignment functionality (with a lot of the code, but I made sure I understood it before putting it in)
 
 Notes about the backend:
 * Used notes that I had in a previous project, StudyingGame (or Masterly) to build the start of it, and I changed it as I went on

@@ -3,8 +3,22 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 
 function DailyToDo() {
-    const location = useLocation();
-    const { assignments, classes, completedAssignments: passedCompletedAssignments } =  location.state || { assignments: {}, classes: [], completedAssignments: {} };
+    //const location = useLocation();
+    //const { assignments, classes, completedAssignments: passedCompletedAssignments } =  location.state || { assignments: {}, classes: [], completedAssignments: {} };
+    const [assignments, setAssignments] = useState(() => {
+        const saved = localStorage.getItem('assignments');
+        return saved ? JSON.parse(saved) : {};
+    });
+
+    const [completedAssignments, setCompletedAssignments] = useState(() => {
+        const saved = localStorage.getItem('completedAssignments');
+        return saved ? JSON.parse(saved) : {};
+    });
+
+    const [classes, setClasses] = useState(() => {
+        const saved = localStorage.getItem('classes');
+        return saved ? JSON.parse(saved) : [];
+    });
     console.log('Received assignments:', assignments);
     console.log('Received classes:', classes);
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -37,7 +51,7 @@ function DailyToDo() {
     };
     const todaysAssignments = getAssignmentsForDate(currentDate);
     //the actual items inside the list
-    const [completedAssignments, setCompletedAssignments] = useState(passedCompletedAssignments || {});
+    // const [completedAssignments, setCompletedAssignments] = useState(passedCompletedAssignments || {});
      //previous and next buttons
     const handlePrevDay = () => {
         setCurrentDate(prev => {
